@@ -1,6 +1,3 @@
-using System.Net;
-using System.Web.UI.WebControls;
-
 namespace SaferPay.Models
 {
     public class AuthorizeRequest : RequestBase

@@ -4,11 +4,32 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/viwodev/SaferPay.NetCore</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>SaferPay Json Api NetCore</Description>
+    <AssemblyVersion>1.33</AssemblyVersion>
+    <FileVersion>1.33</FileVersion>
+    <Version>1.33</Version>
+    <Company>Viwo</Company>
+    <Product>SaferPay.NetCore</Product>
+    <Title>SaferPay.NetCore</Title>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

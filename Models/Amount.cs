@@ -1,9 +1,8 @@
 using System.Globalization;
-using System.Web.ModelBinding;
 
 namespace SaferPay.Models
 {
-	public class Amount
+    public class Amount
 	{
 
         public Amount()
