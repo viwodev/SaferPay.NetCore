@@ -18,13 +18,13 @@ You can find Test Cards and explanation of usage at `https://docs.saferpay.com/h
 
 #### Basic Usage
 
-<br/>
+
 Initialize the ApiClient;
 ```csharp
 ISaferPayClient Client = new SaferPayClient("CustomerId", "TerminalId", "UserName", "PassWord", true);
 ```
 
-<br/>
+
 Initialize request based on your method:
 
 ```csharp
@@ -36,7 +36,7 @@ req.PaymentMeans = new InitializationPaymentMeans(new InitializationCard("901000
 req.ReturnUrl = $"https://localhost/payment/";
 ```
 
-<br/>
+
 Call Api `Async`
 ```csharp
 try
@@ -52,7 +52,7 @@ catch (SaferPayException ex)
         // Catch Errors
 }
 ```
-<br/>
+
 or Call Api `Sync`
 ```csharp
 try
