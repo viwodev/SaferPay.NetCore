@@ -13,14 +13,18 @@ You can find Test Cards and explanation of usage at `https://docs.saferpay.com/h
 + Replaced `BaseUri` with `SandBox` mode, and BaseUri is now generated based on SandBox mode for testing or live.
 + Updated and improved constructors for easier usage.
 + Added descriptions to Properties based on api document.
++ Converted string properties to Enum values.
+  
 
 #### Basic Usage
 
-Init ApiClient;
+<br/>
+Initialize the ApiClient;
 ```csharp
 ISaferPayClient Client = new SaferPayClient("CustomerId", "TerminalId", "UserName", "PassWord", true);
 ```
 
+<br/>
 Initialize request based on your method:
 
 ```csharp
@@ -31,7 +35,9 @@ req.Payment = new InitializationPayment(123.45, "TRY", OrderID);
 req.PaymentMeans = new InitializationPaymentMeans(new InitializationCard("9010004150000009", 12, 30, 123, "Card Holder Name"));
 req.ReturnUrl = $"https://localhost/payment/";
 ```
-Call Api `Async`:
+
+<br/>
+Call Api `Async`
 ```csharp
 try
 {
@@ -46,7 +52,7 @@ catch (SaferPayException ex)
         // Catch Errors
 }
 ```
-
+<br/>
 or Call Api `Sync`
 ```csharp
 try
