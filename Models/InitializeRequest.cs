@@ -1,10 +1,4 @@
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Security.Policy;
-using static System.Net.WebRequestMethods;
+using SaferPay.Enums;
 
 namespace SaferPay.Models
 {
@@ -56,10 +50,11 @@ namespace SaferPay.Models
         public ReturnUrl ReturnUrl { get; set; }
 
         /// <summary>
-        /// Used to restrict the means of payment which are available to the payer
-        /// <br/>Example: ["VISA", "MASTERCARD"]
+        /// Used to restrict the means of payment which are available to the payer<br/><br/>
+        /// <i>Possible values: AMEX, BANCONTACT, BONUS, DINERS, DIRECTDEBIT, JCB, MAESTRO, MASTERCARD, MYONE, UNIONPAY, VISA. Additional values may be accepted but are ignored.</i><br/>
+        /// <i>Example: ["VISA", "MASTERCARD"]</i>
         /// </summary>
-        public List<string> PaymentMethods { get; set; }
+        public List<PaymentMethodTypes> PaymentMethods { get; set; }
 
         /// <summary>
         /// If a redirect of the payer is required, these URLs will be used by Saferpay to notify you when the payer has completed the required steps and the transaction is ready to be authorized or when the operation has failed or has been aborted by the payer.<br/>
@@ -69,50 +64,7 @@ namespace SaferPay.Models
         /// <i>Note: you should not add sensitive data to the query string, as its contents are logged by our web servers.</i>
         /// </summary>
         public ReturnUrls RedirectNotifyUrls { get; set; }
-    }
+    }   
 
-    public class ReturnUrl
-    {
-        public ReturnUrl()
-        {
-            
-        }
-
-        public ReturnUrl(string url)
-        {
-            this.Url = new Uri(url);
-        }
-
-        /// <summary>
-        /// Return url for successful, failed or aborted transaction<br/><br/>
-        /// <strong>Mandatory</strong>
-        /// </summary>
-        public Uri Url { get; set; }
-
-        public override string ToString()
-        {
-            return Url.ToString();
-        }
-
-        public static implicit operator ReturnUrl(string url)
-        {
-            return new ReturnUrl(url);
-        }
-
-    }
-
-    public class InitializationAuthentication
-    {
-        /// <summary>
-        /// Type of Exemption<br/>
-        /// <i>Possible values: LOW_VALUE, TRANSACTION_RISK_ANALYSIS.</i>
-        /// </summary>
-        public string Exemption { get; set; }
-
-        /// <summary>
-        /// 3DS Secure challenge options<br/>
-        /// <i>Possible values: AVOID, FORCE.</i>
-        /// </summary>
-        public string ThreeDsChallenge { get; set; }
-    }
+    
 }

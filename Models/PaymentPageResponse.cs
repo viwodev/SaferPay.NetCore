@@ -1,6 +1,6 @@
 namespace SaferPay.Models
 {
-	public class PaymentPageResponse
+    public class PaymentPageResponse
 	{
 		public ResponseHeader ResponseHeader { get; set; }
 		public string Token { get; set; }

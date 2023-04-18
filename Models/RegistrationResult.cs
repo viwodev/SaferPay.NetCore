@@ -1,7 +1,7 @@
 namespace SaferPay.Models
 {
-	public class RegistrationResult
-	{
+    public class RegistrationResult
+    {
         /// <summary>
         /// Result of registration<br/><br/>
         /// <strong>Mandatory</strong>

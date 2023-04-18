@@ -1,6 +1,4 @@
-using System.Net;
-using System.Security.Policy;
-using System;
+using SaferPay.Enums;
 
 namespace SaferPay.Models
 {
@@ -39,16 +37,8 @@ namespace SaferPay.Models
         /// <i>Possible values: STRONG_CUSTOMER_AUTHENTICATION, FRICTIONLESS, ATTEMPT, EXEMPTION, NONE.<br/>
         /// Example: StrongCustomerAuthentication</i>
         /// </summary>
-        public ThreeDAuthenticationType AuthenticationType { get; set; }
+        public AuthenticationTypes AuthenticationType { get; set; }
 
     }
 
-    public enum ThreeDAuthenticationType
-    {
-        STRONG_CUSTOMER_AUTHENTICATION,
-        FRICTIONLESS,
-        ATTEMPT,
-        EXEMPTION,
-        NONE
-    }
 }

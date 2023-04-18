@@ -1,5 +1,3 @@
-using System.CodeDom;
-
 namespace SaferPay.Models
 {
     public abstract class BasePayment

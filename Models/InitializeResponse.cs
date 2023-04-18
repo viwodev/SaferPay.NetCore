@@ -1,5 +1,3 @@
-using System;
-
 namespace SaferPay.Models
 {
     public class InitializeResponse : ResponseBase

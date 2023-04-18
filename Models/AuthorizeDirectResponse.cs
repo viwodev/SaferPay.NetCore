@@ -1,6 +1,6 @@
 namespace SaferPay.Models
 {
-	public class AuthorizeDirectResponse
+    public class AuthorizeDirectResponse
 	{
 		public ResponseHeader ResponseHeader { get; set; }
 		public Transaction Transaction { get; set; }

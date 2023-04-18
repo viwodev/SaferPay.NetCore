@@ -10,14 +10,25 @@ namespace SaferPay
 	public static class SaferPayClientExtensions
     {
 
+        #region Async Calls
+
         /// <summary>
         /// This method may be used to start a transaction which may involve either DCC and / or 3d-secure.
         /// </summary>
         /// <param name="client"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-		public static Task<InitializeResponse> InitializeAsync(this ISaferPayClient client, InitializeRequest request)
+        public static Task<InitializeResponse> InitializeAsync(this ISaferPayClient client, InitializeRequest request)
             => client.SendAsync<InitializeResponse, InitializeRequest>(SaferPayEndpointConstants.TransactionEndpoint + "/Initialize", request);
+
+        /// <summary>
+        /// This method can be used to start a transaction with the Payment Page which may involve either DCC and / or 3d-secure
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static Task<InitializeResponse> InitializePaymentPageAsync(this ISaferPayClient client, InitializePaymentPageRequest request)
+            => client.SendAsync<InitializeResponse, InitializePaymentPageRequest>(SaferPayEndpointConstants.PaymentPageEndpoint + "/Initialize", request);
 
         /// <summary>
         /// This function may be called to authorize a transaction which was started by a call to Transaction/Initialize.
@@ -56,6 +67,18 @@ namespace SaferPay
             => client.SendAsync<RefundResponse, RefundRequest>(SaferPayEndpointConstants.TransactionEndpoint + "/Refund", request);
 
         /// <summary>
+        /// This method can be used to get the details of a transaction that has been authorized successfully.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static Task<InquireResponse> InquireAsync(this ISaferPayClient client, InquireRequest request)
+            => client.SendAsync<InquireResponse, InquireRequest>(SaferPayEndpointConstants.TransactionEndpoint + "/Inquire", request);
+        #endregion
+
+        #region Sync Calls
+
+        /// <summary>
         /// This method may be used to start a transaction which may involve either DCC and / or 3d-secure.
         /// </summary>
         /// <param name="client"></param>
@@ -63,6 +86,15 @@ namespace SaferPay
         /// <returns></returns>
         public static InitializeResponse Initialize(this ISaferPayClient client, InitializeRequest request)
             => client.Send<InitializeResponse, InitializeRequest>(SaferPayEndpointConstants.TransactionEndpoint + "/Initialize", request);
+
+        /// <summary>
+        /// This method can be used to start a transaction with the Payment Page which may involve either DCC and / or 3d-secure
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static InitializeResponse InitializePaymentPage(this ISaferPayClient client, InitializePaymentPageRequest request)
+            => client.Send<InitializeResponse, InitializePaymentPageRequest>(SaferPayEndpointConstants.PaymentPageEndpoint + "/Initialize", request);
 
         /// <summary>
         /// This function may be called to authorize a transaction which was started by a call to Transaction/Initialize.
@@ -99,6 +131,18 @@ namespace SaferPay
         /// <returns></returns>
         public static RefundResponse Refund(this ISaferPayClient client, RefundRequest request)
             => client.Send<RefundResponse, RefundRequest>(SaferPayEndpointConstants.TransactionEndpoint + "/Refund", request);
+
+        /// <summary>
+        /// This method can be used to get the details of a transaction that has been authorized successfully.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static InquireResponse Inquire(this ISaferPayClient client, InquireRequest request)
+            => client.Send<InquireResponse, InquireRequest>(SaferPayEndpointConstants.TransactionEndpoint + "/Inquire", request);
+        #endregion
+
+
 
     }
 }

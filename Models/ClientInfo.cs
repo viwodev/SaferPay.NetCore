@@ -1,6 +1,6 @@
 namespace SaferPay.Models
 {
-	public class ClientInfo
+    public class ClientInfo
 	{
         /// <summary>
         /// Name and version of the shop software

@@ -1,8 +1,6 @@
-using System;
-
 namespace SaferPay.Models
 {
-	public class CaptureResponse : ResponseBase
+    public class CaptureResponse : ResponseBase
 	{
         /// <summary>
         /// CaptureId of the created capture. Must be stored for later reference (eg refund).<br/><br/>
@@ -16,7 +14,7 @@ namespace SaferPay.Models
         /// <i>Possible values: PENDING, CAPTURED.</i><br/>
         /// <strong>Mandatory</strong>
         /// </summary>
-        public CaptureStatusType Status { get; set; }
+        public TransactionStatus Status { get; set; }
 
         /// <summary>
         /// Date and time of capture. Not set if the capture state is pending.<br/><br/>
@@ -36,9 +34,4 @@ namespace SaferPay.Models
         }
     }
 
-    public enum CaptureStatusType
-    {
-        PENDING, 
-        CAPTURED
-    }
 }

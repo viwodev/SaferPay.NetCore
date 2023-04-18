@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SaferPay.Enums;
 
 namespace SaferPay.Models
 {
@@ -28,13 +24,5 @@ namespace SaferPay.Models
         public string Email { get; set; }
     }
 
-    /// <summary>
-    /// Seller protection status from PayPal.
-    /// </summary>
-    public enum SellerProtectionStatusTypes
-    {
-        ELIGIBLE, 
-        PARTIALLY_ELIGIBLE, 
-        NOT_ELIGIBLE
-    }
+
 }

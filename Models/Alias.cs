@@ -1,7 +1,7 @@
 namespace SaferPay.Models
 {
-	public class Alias
-	{
+    public class Alias
+    {
         /// <summary>
         /// Id / name of the alias<br/><br/>
         /// <i>Example: alias35nfd9mkzfw0x57iwx</i><br/>
@@ -15,5 +15,5 @@ namespace SaferPay.Models
         /// <strong>Mandatory</strong>
         /// </summary>
 		public int Lifetime { get; set; }
-	}
+    }
 }

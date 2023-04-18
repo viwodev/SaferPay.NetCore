@@ -1,6 +1,6 @@
 namespace SaferPay.Models
 {
-	public class AuthorizationRequest : RequestBase
+    public class AuthorizationRequest : RequestBase
 	{
 		public string Terminal { get; set; }
 		public string Token { get; set; }

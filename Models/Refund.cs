@@ -1,6 +1,6 @@
 namespace SaferPay.Models
 {
-	public class Refund
+    public class Refund
 	{
 		public string Description { get; set; }
 		public Amount Amount { get; set; }

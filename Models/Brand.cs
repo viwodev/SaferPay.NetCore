@@ -1,6 +1,8 @@
+using SaferPay.Enums;
+
 namespace SaferPay.Models
 {
-	public class Brand
+    public class Brand
 	{
 
         /// <summary>
@@ -23,34 +25,5 @@ namespace SaferPay.Models
 
     }
 
-    public enum PaymentMethodTypes
-    {
-        ACCOUNTTOACCOUNT, 
-        ALIPAY, 
-        AMEX, 
-        BANCONTACT, 
-        BONUS, 
-        DINERS, 
-        DIRECTDEBIT, 
-        EPRZELEWY, 
-        EPS, 
-        GIROPAY, 
-        IDEAL, 
-        INVOICE, 
-        JCB, 
-        KLARNA, 
-        MAESTRO, 
-        MASTERCARD, 
-        MYONE, 
-        PAYCONIQ, 
-        PAYDIREKT, 
-        PAYPAL, 
-        POSTCARD, 
-        POSTFINANCE, 
-        SOFORT, 
-        TWINT, 
-        UNIONPAY, 
-        VISA, 
-        WLCRYPTOPAYMENTS
-    }
+    
 }

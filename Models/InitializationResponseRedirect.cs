@@ -1,5 +1,3 @@
-using System;
-
 namespace SaferPay.Models
 {
     /// <summary>

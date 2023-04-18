@@ -1,14 +1,11 @@
-using System.CodeDom;
-
 namespace SaferPay.Models
 {
-	public class CaptureRequest : RequestBase
-	{
+    public class CaptureRequest : RequestBase
+    {
 
         public CaptureRequest()
-        {            
+        {
         }
-
 
         /// <summary>
         /// Reference to authorization.
@@ -29,5 +26,15 @@ namespace SaferPay.Models
         /// Currency must match the original transaction currency (request will be declined if currency does not match)
         /// </summary>
         public Amount Amount { get; set; }
-	}
+
+        /// <summary>
+        /// Creates CaptureRequest instance for given TransactionId
+        /// </summary>
+        /// <param name="transactionId"></param>
+        /// <returns></returns>
+        public static CaptureRequest Create(string transactionId)
+        {
+            return new CaptureRequest(transactionId);
+        }
+    }
 }

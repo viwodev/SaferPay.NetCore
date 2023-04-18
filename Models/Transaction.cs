@@ -1,16 +1,15 @@
-using System;
-using System.Text.RegularExpressions;
+using SaferPay.Enums;
 
 namespace SaferPay.Models
 {
-	public class Transaction
+    public class Transaction
 	{
 
         /// <summary>
         /// Type of transaction. One of 'PAYMENT'<br/><br/>
         /// <strong>Mandatory</strong>
         /// </summary>
-        public string Type { get; set; }
+        public TransactionType Type { get; set; }
 
         /// <summary>
         /// Current status of the transaction. One of 'AUTHORIZED','CANCELED', 'CAPTURED' or 'PENDING' (PENDING is only used for paydirekt and WL Crypto Payments refund at the moment)<br/><br/>

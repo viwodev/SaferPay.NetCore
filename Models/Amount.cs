@@ -3,10 +3,10 @@ using System.Globalization;
 namespace SaferPay.Models
 {
     public class Amount
-	{
+    {
 
         public Amount()
-        {            
+        {
         }
 
         public Amount(decimal amount, string currencyCode)
@@ -17,7 +17,7 @@ namespace SaferPay.Models
 
         public string Value { get; set; }
 
-		public string CurrencyCode { get; set; }
+        public string CurrencyCode { get; set; }
 
         public override string ToString()
         {

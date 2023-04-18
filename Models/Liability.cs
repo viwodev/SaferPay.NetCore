@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SaferPay.Enums;
 
 namespace SaferPay.Models
 {
@@ -20,7 +16,7 @@ namespace SaferPay.Models
         /// Indicates who takes the liability for the transaction<br/><br/>
         /// <i>Possible values: MERCHANT, THREEDS.</i>
         /// </summary>
-        public LiableEntityType LiableEntity { get; set; }
+        public LiableEntityTypes LiableEntity { get; set; }
 
         /// <summary>
         /// Details about ThreeDs if applicable<br/><br/>
@@ -31,26 +27,9 @@ namespace SaferPay.Models
         /// Determines if the transaction is in the PSD2 Scope (Payment Service Directive 2 of the European Union)<br/><br/>
         /// <i>Possible values: YES, NO, UNKNOWN.</i>
         /// </summary>
-        public InPsd2ScopeType InPsd2Scope { get; set; }
+        public InPsd2ScopeTypes InPsd2Scope { get; set; }
 
     }
 
-    /// <summary>
-    /// Determines if the transaction is in the PSD2 Scope (Payment Service Directive 2 of the European Union)
-    /// </summary>
-    public enum InPsd2ScopeType
-    {
-        YES,
-        NO,
-        UNKNOWN
-    }
 
-    /// <summary>
-    /// Indicates who takes the liability for the transaction
-    /// </summary>
-    public enum LiableEntityType
-    {
-        MERCHANT,
-        THREEDS
-    }
 }

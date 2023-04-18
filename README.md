@@ -16,7 +16,7 @@ You can find Test Cards and explanation of usage at `https://docs.saferpay.com/h
 + Converted string properties to Enum values.
   
 
-#### Basic Usage
+### Basic Usage
 
 
 Initialize the ApiClient;

@@ -1,10 +1,12 @@
+using SaferPay.Enums;
+
 namespace SaferPay.Models
 {
     /// <summary>
     /// Card data
     /// </summary>
 	public class AuthorizationCard
-	{
+    {
         /// <summary>
         /// Masked card number<br/><br/>
         /// <i>Example: 912345xxxxxx1234</i>
@@ -46,16 +48,6 @@ namespace SaferPay.Models
         /// The HashValue, if the hash generation is configured for the customer.
         /// </summary>
 		public string HashValue { get; set; }
-	}
-
-    /// <summary>
-    /// The Segment of card holder. Only returned for Alias/AssertInsert, Alias/InsertDirect and Alias/Update calls if available.
-    /// </summary>
-    public enum HolderSegmentTypes
-    {
-        UNSPECIFIED, 
-        CONSUMER, 
-        CORPORATE, 
-        CORPORATE_AND_CONSUMER
     }
+
 }

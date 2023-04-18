@@ -8,15 +8,17 @@
     <PackageProjectUrl>https://github.com/viwodev/SaferPay.NetCore</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>SaferPay Json Api NetCore</Description>
-    <AssemblyVersion>1.33.01</AssemblyVersion>
-    <FileVersion>1.33.01</FileVersion>
-    <Version>1.33.01</Version>
+    <Version>1.33.02</Version>
     <Company>Viwo</Company>
     <Product>SaferPay.NetCore</Product>
     <Title>SaferPay.NetCore</Title>
-    <RepositoryUrl>https://github.com/viwodev/SaferPay.NetCore</RepositoryUrl>
+    <RepositoryUrl></RepositoryUrl>
     <PackageId>SaferPay.Netcore</PackageId>
     <Authors>Rasim H.</Authors>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageTags>saferpay, net core</PackageTags>
+    <FileVersion>1.33.02</FileVersion>
+    <AssemblyVersion>1.33.02</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
