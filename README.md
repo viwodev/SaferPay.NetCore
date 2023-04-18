@@ -1,13 +1,16 @@
 # SaferPay.NetCore Json Api V1.33
 
-This repository is an implementation of the SaferPay.Net library (https://github.com/bmbsqd/saferpay-net), with updates to use .NetCore 6.0 and RestSharp instead of HttpClient. The implementation is based on the latest version of the JSON API, v1.33, which can be found at the following URL: http://saferpay.github.io/jsonapi/#ChapterTransaction.
+This repository is an implementation of the `SaferPay.Net` library (`https://github.com/bmbsqd/saferpay-net`), with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient, and all methods extented by sync and async call. 
+
+The implementation is based on the latest version of the JSON API, v1.33, which can be found at the following URL: `http://saferpay.github.io/jsonapi/#ChapterTransaction`.
 
 ### What's New
-+ Upgrade to .NetCore 6.0
-+ HttpClient has been replaced by RestSharp
-+ Updated to use the latest version of the JSON API, v1.33
-+ BaseUri has been replaced by SandBox mode, and BaseUri will now be generated based on SandBox mode.
++ Upgrade to `.NetCore 6.0`
++ HttpClient has been replaced by `RestSharp`
++ Updated to use the latest version of the JSON API, `v1.33`
++ `BaseUri` has been replaced by **`SandBox`** mode, and BaseUri will now be generated based on SandBox mode for testing or live.
 + Constructors have been updated and improved for easier usage.
++ Added descriptions to Properties based on api document.
 
 #### Basic Usage
 
