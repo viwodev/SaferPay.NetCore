@@ -15,7 +15,13 @@
     <Product>SaferPay.NetCore</Product>
     <Title>SaferPay.NetCore</Title>
     <RepositoryUrl>https://github.com/viwodev/SaferPay.NetCore</RepositoryUrl>
+    <PackageId>SaferPay.Netcore</PackageId>
+    <Authors>Rasim H.</Authors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="nuget.config" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
