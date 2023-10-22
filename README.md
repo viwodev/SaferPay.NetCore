@@ -1,4 +1,4 @@
-# SaferPay.NetCore Json Api V1.33
+# SaferPay.NetCore Json Api V1.36
 
 This repository is an implementation of the `SaferPay.Net` library (`https://github.com/bmbsqd/saferpay-net`), with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient, and all methods extented by sync and async call. 
 
