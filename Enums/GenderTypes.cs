@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json.Converters;
 
 namespace SaferPay.Enums
 {
+    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
     public enum GenderTypes
     {
         MALE,

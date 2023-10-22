@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0">
+    <title>Payment Successful</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;600;700&family=Gabarito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+        html {
+            font-family: 'Gabarito', sans-serif;
+            font-size: 16px;
+            background: #00695C;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48
+        }
+
+        .material-symbols-outlined {
+            font-size: 3rem;
+        }
+
+        .page {
+            display: flex;
+            max-width: 1024px;
+            margin: 0 auto;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 0 2rem;
+        }
+
+        .content {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem;
+            border-radius: 1.5rem;
+            background: #f7f7f7;
+            min-width: 280px;
+            max-width: 480px;
+        }
+
+        .icon {
+            background: #009688;
+            color: #fff;
+            width: 5rem;
+            height: 5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            color: #009688;
+        }
+
+        .desc {
+            color: gray;
+            font-weight: 400;
+            margin-top: 1rem;
+            text-align: center;
+            line-height: 1.35;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="center">
+            <div class="content">
+                <div class="icon">
+                    <span class="material-symbols-outlined">
+                        check
+                    </span>
+                </div>
+                <div class="title">
+                    {{Title}}
+                </div>
+                <div class="desc">
+                    {{Desc}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

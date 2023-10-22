@@ -8,18 +8,39 @@
     <PackageProjectUrl>https://github.com/viwodev/SaferPay.NetCore</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>SaferPay Json Api NetCore</Description>
-    <Version>1.33.02</Version>
+    <Version>1.36.01</Version>
     <Company>Viwo</Company>
     <Product>SaferPay.NetCore</Product>
     <Title>SaferPay.NetCore</Title>
-    <RepositoryUrl></RepositoryUrl>
+    <RepositoryUrl>https://github.com/viwodev/SaferPay.NetCore</RepositoryUrl>
     <PackageId>SaferPay.Netcore</PackageId>
     <Authors>Rasim H.</Authors>
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageTags>saferpay, net core</PackageTags>
-    <FileVersion>1.33.02</FileVersion>
-    <AssemblyVersion>1.33.02</AssemblyVersion>
+    <PackageTags>saferpay, net core, c#</PackageTags>
+    <FileVersion>1.36.01</FileVersion>
+    <AssemblyVersion>1.36.01</AssemblyVersion>
+    <PackageIcon>viwo-power.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="SaferPay.Test\**" />
+    <EmbeddedResource Remove="SaferPay.Test\**" />
+    <None Remove="SaferPay.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Core\InitializationCard.cs" />
+    <Compile Remove="Models\Core\InitializationPaymentMeans.cs" />
+    <Compile Remove="Models\Core\InitializationResponseRedirect.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\viwo\viwo-power.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json.Converters;
+using System.ComponentModel;
 
 namespace SaferPay.Enums
 {
+    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
     public enum PaymentMethodTypes
     {
 
@@ -16,6 +18,9 @@ namespace SaferPay.Enums
 
         [Description("Bancontact")]
         BANCONTACT,
+
+        [Description("Card")]
+        CARD,
 
         [Description("Bonus")]
         BONUS,

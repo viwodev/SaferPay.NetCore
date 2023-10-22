@@ -1,8 +1,11 @@
-﻿namespace SaferPay.Enums
+﻿using Newtonsoft.Json.Converters;
+
+namespace SaferPay.Enums
 {
+    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
     public enum AuthorizeConditionTypes
     {
-        WITH_LIABILITY_SHIFT, 
-        IF_ALLOWED_BY_SCHEME
+        NONE,
+        THREE_DS_AUTHENTICATION_SUCCESSFUL_OR_ATTEMPTED
     }
 }
