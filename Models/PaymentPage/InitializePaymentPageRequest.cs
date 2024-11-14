@@ -30,6 +30,7 @@ public class InitializePaymentPageRequest : RequestBase
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Authentication Authentication { get; set; }
 
+
     /// <summary>
     /// Use this container if you need to get a billing address from the payer during the payment process.<br/>
     /// Saferpay can show an address form and depending on the means of payment, it is also possible to get the address from the means of payment (e.g. PayPal or any kind of wallet) if available.<br/>
@@ -46,6 +47,7 @@ public class InitializePaymentPageRequest : RequestBase
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public CardForm CardForm { get; set; }
 
+
     /// <summary>
     /// Optional Condition for Authorization (only 3DSv2), to control, whether or not, transactions without LiabilityShift should be accepted. Important Note: This only filters out transactions, where the condition is conclusive before the authorization itself. It is possible, that LiabilityShift is rejected after the authorization. Please always check the Liability container, within the authorization-response, to be 100% sure, if LiabilityShift applies, or not!
     /// <i>Default: NONE(empty)</i><br/><br/>
@@ -53,6 +55,7 @@ public class InitializePaymentPageRequest : RequestBase
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public AuthorizeConditionTypes Condition { get; set; }
+
 
     /// <summary>
     /// This parameter let you define your payment page config (PPConfig) by name. If this parameters is not set, your default PPConfig will be applied if available.<br/>
@@ -72,11 +75,13 @@ public class InitializePaymentPageRequest : RequestBase
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public AddressForm DeliveryAddressForm { get; set; }
 
+
     /// <summary>
     /// Notification options
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Notification Notification { get; set; }
+
 
     /// <summary>
     /// Optional order information. Only used for payment method Klarna (mandatory) and for Fraud Intelligence (optional).
@@ -84,17 +89,20 @@ public class InitializePaymentPageRequest : RequestBase
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Order Order { get; set; }
 
+
     /// <summary>
     /// Information about the payer
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Payer Payer { get; set; }
 
+
     /// <summary>
     /// Information about the payment (amount, currency, ...)<br/>
     /// <strong>Mandatory</strong>
     /// </summary>
     public Payment Payment { get; set; }
+
 
     /// <summary>
     /// Used to restrict the means of payment which are available to the payer for this transaction. If only one payment method id is set, the payment selection step will be skipped.<br/><br/>
@@ -103,6 +111,7 @@ public class InitializePaymentPageRequest : RequestBase
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public List<PaymentPagePaymentMethods> PaymentMethods { get; set; }
+
 
     /// <summary>
     /// Optional. May be used to set specific options for some payment methods.

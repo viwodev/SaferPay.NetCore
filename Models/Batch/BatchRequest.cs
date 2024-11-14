@@ -1,12 +1,13 @@
-﻿using SaferPay.Models.Core;
+﻿using SaferPay.Models.Attributes;
+using SaferPay.Models.Core;
 
-namespace SaferPay.Models.Batch
+namespace SaferPay.Models.Batch;
+
+public class BatchRequest : RequestBase
 {
-    public class BatchRequest : RequestBase
-    {
-        /// <summary>
-        /// Saferpay Terminal-Id
-        /// </summary>
-        public string TerminalId { get; set; }
-    }
+    /// <summary>
+    /// Saferpay Terminal-Id
+    /// </summary>
+    [Mandatory]
+    public string TerminalId { get; set; }
 }

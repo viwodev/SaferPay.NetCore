@@ -300,24 +300,6 @@ namespace SaferPay.Test
                         Authorize(token);
                         return;
 
-                    case TransactionMenu.QueryPaymentMeans:
-                        // Query Payment Means
-                        Console.WriteLine("Query Payment Means Request >>", color.Green);
-                        Console.Write(">> Please Enter Token: ", color.Yellow);
-                        var qpm = Console.ReadLine();
-                        QueryPaymentMeans(qpm);
-                        return;
-
-                    case TransactionMenu.AdjustAmount:
-                        // Adjust Amount
-                        Console.WriteLine("Adjust Amount Request >>", color.Green);
-                        Console.Write(">> Please Enter Token: ", color.Yellow);
-                        var amToken = Console.ReadLine();
-                        Console.Write(">> Please Enter New Amount (Ex: 1230 for 12.30): ", color.Yellow);
-                        var amount = Console.ReadLine();
-                        AdjustAmount(amToken, amount);
-                        return;
-
                     case TransactionMenu.Capture:
                         // Capture
                         Console.WriteLine("Capture Request >>", color.Green);
@@ -446,43 +428,6 @@ namespace SaferPay.Test
         }
 
         /// <summary>
-        /// Query Payment Means
-        /// </summary>
-        /// <param name="token"></param>
-        public async static void QueryPaymentMeans(string token)
-        {
-            if (string.IsNullOrEmpty(token))
-            {
-                Console.Clear();
-                Console.WriteLine("Token is null!", color.Red);
-                Console.WriteLine();
-                Console.WriteLine("Press any key to continue ...", color.Gray);
-                Console.ReadLine();
-                TransactionPage();
-                return;
-            }
-
-            Console.Clear();
-            Console.WriteLine("*** Query Payment Means ...", color.Gray);
-            ITransaction payment = SaferPayClient.Transaction;
-            var response = await payment.QueryPaymentMeansAsync(new QueryPaymentMeansRequest(token));
-
-            if (response.IsSuccess)
-            {
-                Console.WriteLine(response.Json(), color.Green);
-            }
-            else
-            {
-                Console.WriteLine(response.Json(), color.Red);
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("Press a key to continue ...", color.Gray);
-            Console.ReadLine();
-            TransactionPage();
-        }
-
-        /// <summary>
         /// Refund
         /// </summary>
         /// <param name="transactionId"></param>
@@ -503,18 +448,19 @@ namespace SaferPay.Test
             Console.Clear();
             Console.WriteLine("*** Refund ...", color.Gray);
             var payment = SaferPayClient.Transaction;
-            var response = await payment.RefundAsync(new Models.Transaction.RefundRequest(transactionId, amount.Replace(".","").Replace(",",",,"), TestConfig.Currency));
+            var response = await payment.RefundAsync(new Models.Transaction.RefundRequest(transactionId, amount.Replace(".", "").Replace(",", ",,"), TestConfig.Currency));
 
             Console.WriteLine();
 
             if (response.IsSuccess)
             {
                 Console.WriteLine(response.Json(), color.Green);
-            } else
+            }
+            else
             {
                 Console.WriteLine(response.Json(), color.Red);
             }
-            
+
             Console.WriteLine();
 
             Console.WriteLine();
@@ -544,44 +490,6 @@ namespace SaferPay.Test
             Console.WriteLine("*** Assert Refund ...", color.Gray);
             var payment = SaferPayClient.Transaction;
             var response = await payment.AssertRefundAsync(new AssertRefundRequest(transactionID));
-
-            if (response.IsSuccess)
-            {
-                Console.WriteLine(response.Json(), color.Green);
-            }
-            else
-            {
-                Console.WriteLine(response.Json(), color.Red);
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("Press a key to continue ...", color.Gray);
-            Console.ReadLine();
-            TransactionPage();
-        }
-
-        /// <summary>
-        /// Adjust Amount
-        /// </summary>
-        /// <param name="token"></param>
-        /// <param name="amount"></param>
-        public async static void AdjustAmount(string token, string amount)
-        {
-            if (string.IsNullOrEmpty(token))
-            {
-                Console.Clear();
-                Console.WriteLine("Token is null!", color.Red);
-                Console.WriteLine();
-                Console.WriteLine("Press a key to continue ...", color.Gray);
-                Console.ReadLine();
-                TransactionPage();
-                return;
-            }
-
-            Console.Clear();
-            Console.WriteLine("*** Adjust Amount ...", color.Gray);
-            var payment = SaferPayClient.Transaction;
-            var response = await payment.AdjustAmountAsync(new Models.Transaction.AdjustAmountRequest(token, decimal.Parse(amount), TestConfig.Currency));
 
             if (response.IsSuccess)
             {

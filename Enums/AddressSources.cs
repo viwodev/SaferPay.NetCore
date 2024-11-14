@@ -3,8 +3,9 @@
 namespace SaferPay.Enums;
 
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-public enum HolderNameTypes
+public enum AddressSources
 {
-    NONE,
-    MANDATORY
+    NONE, 
+    SAFERPAY, 
+    PREFER_PAYMENTMETHOD
 }

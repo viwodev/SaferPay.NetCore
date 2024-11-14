@@ -1,4 +1,5 @@
-﻿using SaferPay.Models.Core;
+﻿using SaferPay.Models.Attributes;
+using SaferPay.Models.Core;
 
 namespace SaferPay.Models.OmniChannel;
 
@@ -14,12 +15,15 @@ public class AcquireTransactionRequest : RequestBase
     public string OrderId { get; set; }
 
     /// <summary>
-    /// Saferpay terminal id
-    /// </summary>
-    public string TerminalId { get; set; }
-
-    /// <summary>
     /// SIX Transaction Reference
     /// </summary>
+    [Mandatory]
     public string SixTransactionReference { get; set; }
+
+    /// <summary>
+    /// Saferpay terminal id
+    /// </summary>
+    [Mandatory]
+    public string TerminalId { get; set; }
+
 }

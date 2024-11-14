@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\JsonHelpers.cs" />
     <Compile Remove="Models\Core\InitializationCard.cs" />
     <Compile Remove="Models\Core\InitializationPaymentMeans.cs" />
     <Compile Remove="Models\Core\InitializationResponseRedirect.cs" />

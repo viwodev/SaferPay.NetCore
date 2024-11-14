@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using SaferPay.Enums;
+using SaferPay.Models.Attributes;
 
 namespace SaferPay.Models.Core;
 
@@ -17,12 +13,14 @@ public class AddressForm
     /// For NONE no address form will be displayed and no address data will be retrieved from the means of payment.<br/><br/>
     /// <i>NONE, SAFERPAY, PREFER_PAYMENTMETHOD</i>
     /// </summary>
-    public string BillingAddressForm { get; set; }
+    [Mandatory]
+    public AddressSources AddressSource { get; set; }
 
     /// <summary>
     /// List of fields which the payer must enter to proceed with the payment.<br/>
     /// This is only applicable if Saferpay displays the address form.<br/>
-    /// If no mandatory fields are sent, all fields except SALUTATION, COMPANY and PHONE are mandatory.
+    /// If no mandatory fields are sent, all fields except SALUTATION, COMPANY and PHONE are mandatory.<br/><br/>
+    /// <i>Possible values: CITY, COMPANY, VATNUMBER, COUNTRY, EMAIL, FIRSTNAME, LASTNAME, PHONE, SALUTATION, STATE, STREET, ZIP.</i>
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public List<string> MandatoryFields { get; set; }

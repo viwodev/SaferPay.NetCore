@@ -1,22 +1,21 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace SaferPay
-{
-    public static class JsonSettings
-    {
-        public static JsonSerializerSettings Default { get; } = CreateDefaultSettings();
+namespace SaferPay;
 
-        public static JsonSerializerSettings CreateDefaultSettings()
+public static class JsonSettings
+{
+    public static JsonSerializerSettings Default { get; } = CreateDefaultSettings();
+
+    public static JsonSerializerSettings CreateDefaultSettings()
+    {
+        return new JsonSerializerSettings
         {
-            return new JsonSerializerSettings
+            ContractResolver = new DefaultContractResolver
             {
-                ContractResolver = new DefaultContractResolver
-                {
-                    // No CamelCase for json 9.x
-                    NamingStrategy = new DefaultNamingStrategy()
-                }
-            };
-        }
+                // No CamelCase for json 9.x
+                NamingStrategy = new DefaultNamingStrategy()
+            }
+        };
     }
 }
