@@ -34,5 +34,10 @@ namespace SaferPay.Models.Core
         /// </summary>
         public string FailNotifyUrl { get; set; }
 
+        /// <summary>
+        /// Url which is called by Saferpay if an action could not be completed synchronously and was reported with a ‘pending’ state (eg CAPTURE_PENDING or REFUND_PENDING). Up until now, this is only applicable for Paydirekt transactions or WL Crypto Payments refunds.
+        /// </summary>
+        public string NotifyUrl { get; set; }
+
     }
 }

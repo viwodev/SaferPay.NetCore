@@ -1,19 +1,20 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace SaferPay.Enums
+namespace SaferPay.Enums;
+
+/// <summary>
+/// AMEX, BONUS, DINERS, DIRECTDEBIT, JCB, MAESTRO, MASTERCARD, MYONE, VISA
+/// </summary>
+[Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
+public enum AliasPaymentMethods
 {
-    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-    public enum AliasPaymentMethods
-    {
-        AMEX, 
-        BANCONTACT, 
-        BONUS, 
-        DINERS, 
-        DIRECTDEBIT, 
-        JCB, 
-        MAESTRO, 
-        MASTERCARD, 
-        MYONE, 
-        VISA
-    }
+    AMEX, 
+    BONUS, 
+    DINERS, 
+    DIRECTDEBIT, 
+    JCB, 
+    MAESTRO, 
+    MASTERCARD, 
+    MYONE, 
+    VISA
 }

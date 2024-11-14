@@ -1,13 +1,20 @@
 ﻿using Newtonsoft.Json.Converters;
+using System.ComponentModel;
 
-namespace SaferPay.Enums
+namespace SaferPay.Enums;
+
+[Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
+public enum GenderTypes
 {
-    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-    public enum GenderTypes
-    {
-        MALE,
-        FEMALE,
-        DIVERSE, 
-        COMPANY
-    }
+    [Description("Male")]
+    MALE,
+
+    [Description("Female")]
+    FEMALE,
+
+    [Description("Diverse")]
+    DIVERSE,
+
+    [Description("Company")]
+    COMPANY
 }

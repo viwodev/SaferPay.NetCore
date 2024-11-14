@@ -39,7 +39,8 @@ namespace SaferPay.Models.SecureData
         public CheckTypes Check { get; set; }
 
         /// <summary>
-        /// Used to restrict the means of payment which are available to the payer
+        /// Used to restrict the means of payment which are available to the payer<br/>
+        /// <i>AMEX, BONUS, DINERS, DIRECTDEBIT, JCB, MAESTRO, MASTERCARD, MYONE, VISA</i>
         /// </summary>
         public AliasPaymentMethods PaymentMethods { get; set; }
 

@@ -3,10 +3,8 @@
 namespace SaferPay.Enums;
 
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-public enum AliasType
+public enum MultipartCaptureTypes
 {
-    CARD,
-    BANK_ACCOUNT,
-    POSTFINANCEPAY,
-    TWINT
+    PARTIAL,
+    FINAL
 }

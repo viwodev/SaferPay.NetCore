@@ -1,20 +1,25 @@
 ﻿using SaferPay.Models.Core;
 
-namespace SaferPay.Models.OmniChannel
+namespace SaferPay.Models.OmniChannel;
+
+/// <summary>
+/// AcquireTransaction
+/// </summary>
+public class AcquireTransactionResponse : ResponseBase
 {
     /// <summary>
-    /// AcquireTransaction
+    /// Dcc information, if applicable
     /// </summary>
-    public class AcquireTransactionResponse : ResponseBase
-    {
-        /// <summary>
-        /// Information about the transaction
-        /// </summary>
-        public TransactionItem Transaction { get; set; }
+    public Dcc Dcc { get; set; }
 
-        /// <summary>
-        /// Information about the means of payment
-        /// </summary>
-        public PaymentMeans PaymentMeans { get; set; }
-    }
+    /// <summary>
+    /// Information about the means of payment
+    /// </summary>
+    public PaymentMeans PaymentMeans { get; set; }
+
+    /// <summary>
+    /// Information about the transaction
+    /// </summary>
+    public TransactionItem Transaction { get; set; }
+
 }

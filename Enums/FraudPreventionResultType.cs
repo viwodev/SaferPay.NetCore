@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace SaferPay.Enums
+namespace SaferPay.Enums;
+
+[Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
+public enum FraudPreventionResultTypes
 {
-    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-    public enum FraudPreventionResultTypes
-    {
-        APPROVED, 
-        MANUAL_REVIEW
-    }
+    APPROVED,
+    CHALLENGED
 }

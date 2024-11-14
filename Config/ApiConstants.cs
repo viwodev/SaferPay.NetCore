@@ -1,7 +1,6 @@
-﻿namespace SaferPay.Config
+﻿namespace SaferPay.Config;
+
+public static class SaferPayApiConstants
 {
-    public static class SaferPayApiConstants
-    {
-        public const string Version = "1.36";
-    }
+    public const string Version = "1.43";
 }
