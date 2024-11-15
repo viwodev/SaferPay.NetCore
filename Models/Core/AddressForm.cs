@@ -13,7 +13,7 @@ public class AddressForm
     /// For NONE no address form will be displayed and no address data will be retrieved from the means of payment.<br/><br/>
     /// <i>NONE, SAFERPAY, PREFER_PAYMENTMETHOD</i>
     /// </summary>
-    [Mandatory]
+    [Mandatory("AddressSource field is mandatory.")]
     public AddressSources AddressSource { get; set; }
 
     /// <summary>

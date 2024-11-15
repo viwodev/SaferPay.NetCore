@@ -2,6 +2,9 @@
 
 namespace SaferPay.Models.Core;
 
+/// <summary>
+/// May be used to set specific options for some payment methods.
+/// </summary>
 public class PaymentMethodsOptions
 {
     /// <summary>

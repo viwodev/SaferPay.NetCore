@@ -101,6 +101,7 @@ public class InitializePaymentPageRequest : RequestBase
     /// Information about the payment (amount, currency, ...)<br/>
     /// <strong>Mandatory</strong>
     /// </summary>
+    [Mandatory("Payment field is mandatory.")]
     public Payment Payment { get; set; }
 
 
@@ -135,7 +136,7 @@ public class InitializePaymentPageRequest : RequestBase
     /// Note: you should not add sensitive data to the query string, as its contents is plainly visible inside the browser and will be logged by our web servers.</i><br/><br/>
     /// <strong>* Mandatory</strong>
     /// </summary>
-    [Mandatory]
+    [Mandatory("ReturnUrl field is required.")]
     public ReturnUrl ReturnUrl { get; set; }
 
 
@@ -150,7 +151,7 @@ public class InitializePaymentPageRequest : RequestBase
     /// Saferpay terminal id<br/><br/>
     /// <strong>* Mandatory</strong>
     /// </summary>
-    [Mandatory]
+    [Mandatory("Terminal Id is mandatory.")]
     public string TerminalId { get; set; }
 
 

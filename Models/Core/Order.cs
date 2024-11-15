@@ -1,4 +1,5 @@
 ﻿using SaferPay.Enums;
+using SaferPay.Models.Attributes;
 
 namespace SaferPay.Models.Core;
 
@@ -7,6 +8,7 @@ public class Order
     /// <summary>
     /// Order items
     /// </summary>
+    [Mandatory("Order Items is mandatory!")]
     public List<OrderItem> Items { get; set; }
 }
 

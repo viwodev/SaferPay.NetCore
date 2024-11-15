@@ -1,4 +1,5 @@
 using SaferPay.Enums;
+using SaferPay.Models.Attributes;
 
 namespace SaferPay.Models.Core;
 
@@ -18,6 +19,7 @@ public class RegisterAlias
     /// Id generator to be used by Saferpay.<br/><br/>
     /// <i>Possible values: MANUAL, RANDOM, RANDOM_UNIQUE.</i>
     /// </summary>
+    [Mandatory("IdGenerator field is mandatory.")]
     public IdGeneratorTypes IdGenerator { get; set; }
 
     /// <summary>

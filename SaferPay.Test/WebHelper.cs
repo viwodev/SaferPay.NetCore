@@ -143,7 +143,7 @@ public static class WebHelper
                 var token = Helpers.CurrentTokens[orderId].ToString();
                 var payment = Helpers.SaferPayClient.PaymentPage;
 
-                var result = await payment.AssertAsync(new SaferPay.Models.PaymentPage.AssertRequest(token));
+                var result = await payment.AssertAsync(token);
                 if (result.IsSuccess && result != null && result.Transaction != null)
                 {
 

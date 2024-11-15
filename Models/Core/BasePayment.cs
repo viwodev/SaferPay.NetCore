@@ -1,19 +1,23 @@
 ﻿using Newtonsoft.Json;
+using SaferPay.Models.Attributes;
 
 namespace SaferPay.Models.Core;
 
 public abstract class BasePayment
 {
+
     /// <summary>
     /// <b>Amount <i>![Mandatory]</i></b><br/><br/>
     /// Amount data (currency, value, etc.)<br/>
     /// </summary>
+    [Mandatory("Amount field is required.")]
     public Amount Amount { get; set; }
 
     /// <summary>
     /// A human readable description provided by the merchant that can be displayed in web sites.<br/>
     /// <i>Utf8[1..1000]</i>
     /// </summary>
+    [Mandatory("Description field is required.")]
     public string Description { get; set; }
 
     /// <summary>

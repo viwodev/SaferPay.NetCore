@@ -567,11 +567,14 @@ namespace SaferPay.Test
             request.PaymentMethods = new List<Enums.PaymentPagePaymentMethods>() {
                 Enums.PaymentPagePaymentMethods.TWINT,
                 Enums.PaymentPagePaymentMethods.VISA,
+                Enums.PaymentPagePaymentMethods.BLIK,
+                Enums.PaymentPagePaymentMethods.WECHATPAY,
+                Enums.PaymentPagePaymentMethods.POSTFINANCEPAY,                
                 Enums.PaymentPagePaymentMethods.PAYPAL };
 
             request.Notification = new Models.Core.Notification();
             request.Notification.SuccessNotifyUrl = url + "&res=success";
-            request.Notification.FailNotifyUrl = url + "&res=fail"; ;
+            request.Notification.FailNotifyUrl = url + "&res=fail";
 
             Console.WriteLine("Payment Page Request : ", color.Gray);
             Console.WriteLine(request.Json(), color.Yellow);
