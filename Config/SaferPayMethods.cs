@@ -134,6 +134,11 @@
         public const string AliasDelete = "Delete";
 
         /// <summary>
+        /// Request URL:        POST: /Payment/v1/Alias/Inquire
+        /// </summary>
+        public const string AliasInquire = "Inquire";
+
+        /// <summary>
         /// Request URL:        POST: /Payment/v1/Batch/Close
         /// </summary>
         public const string BatchClose = "Close";

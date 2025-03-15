@@ -1,4 +1,4 @@
-# SaferPay.NetCore Json Api V1.43
+# SaferPay.NetCore Json Api V1.45
 
 This repository is an implementation of the `SaferPay.Net` library (`https://github.com/bmbsqd/saferpay-net`), with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient, and all methods extented by sync and async call. 
 
@@ -9,7 +9,7 @@ You can find Test Cards and explanation of usage at `https://docs.saferpay.com/h
 ### What's New
 + Upgrade to `.NetCore 6.0`
 + HttpClient has been replaced by `RestSharp`
-+ Updated to use the latest version of the JSON API, `v1.43`
++ Updated to use the latest version of the JSON API, `v1.45`
 + Replaced `BaseUri` with `SandBox` mode, and BaseUri is now generated based on SandBox mode for testing or live.
 + Updated and improved constructors for easier usage.
 + Added descriptions to Properties based on api document.

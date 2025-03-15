@@ -7,8 +7,8 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/viwodev/SaferPay.NetCore</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Description>SaferPay Json Api NetCore</Description>
-    <Version>1.43.01</Version>
+    <Description>SaferPay Json Api V:1.45 NetCore</Description>
+    <Version>1.45.01</Version>
     <Company>Viwo</Company>
     <Product>SaferPay.NetCore</Product>
     <Title>SaferPay.NetCore</Title>
@@ -17,8 +17,8 @@
     <Authors>Rasim H.</Authors>
     <EnablePackageValidation>true</EnablePackageValidation>
     <PackageTags>saferpay, net core, c#</PackageTags>
-    <FileVersion>1.43.01</FileVersion>
-    <AssemblyVersion>1.43.01</AssemblyVersion>
+    <FileVersion>1.45.01</FileVersion>
+    <AssemblyVersion>1.45.01</AssemblyVersion>
     <PackageIcon>viwo-power.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

@@ -22,9 +22,6 @@ public enum PaymentMethodTypes
     [Description("Card")]
     CARD,
 
-    [Description("Bonus")]
-    BONUS,
-
     [Description("Diners Club International & Discover Card")]
     DINERS,
 
@@ -58,9 +55,6 @@ public enum PaymentMethodTypes
     [Description("Mastercard")]
     MASTERCARD,
 
-    [Description("MyOne")]
-    MYONE,
-
     [Description("PayConiq")]
     PAYCONIQ,
 
@@ -75,6 +69,9 @@ public enum PaymentMethodTypes
 
     [Description("Postfinance Card & eFinance")]
     POSTFINANCE,
+
+    [Description("Reka")]
+    REKA,
 
     [Description("Sofort by Klarna")]
     SOFORT,

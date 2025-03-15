@@ -25,6 +25,18 @@ public class SecureCardData : ISecureCardData
         return null;
     }
 
+    public AliasInquireResponse AliasInquire(AliasInquireRequest request)
+    {
+        if (_client != null) return _client.Send<AliasInquireResponse, AliasInquireRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInquire, request);
+        return null;
+    }
+
+    public Task<AliasInquireResponse> AliasInquireAsync(AliasInquireRequest request)
+    {
+        if (_client != null) return _client.SendAsync<AliasInquireResponse, AliasInquireRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInquire, request);
+        return null;
+    }
+
     public AliasInsertResponse AliasInsert(AliasInsertRequest request)
     {
         if (_client != null) return _client.Send<AliasInsertResponse, AliasInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsert, request);

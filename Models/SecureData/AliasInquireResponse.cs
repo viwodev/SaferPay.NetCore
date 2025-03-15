@@ -2,7 +2,7 @@
 
 namespace SaferPay.Models.SecureData;
 
-public class InsertDirectResponse : ResponseBase
+public class AliasInquireResponse : ResponseBase
 {
     /// <summary>
     /// Information about the registered alias.
@@ -10,12 +10,17 @@ public class InsertDirectResponse : ResponseBase
     public Alias Alias { get; set; }
 
     /// <summary>
+    /// Result of the Check
+    /// </summary>
+    public CheckResult CheckResult { get; set; }
+
+    /// <summary>
     /// Information about the registered means of payment
     /// </summary>
     public PaymentMeans PaymentMeans { get; set; }
 
     /// <summary>
-    /// Result of the Check
+    /// result of external tokenization
     /// </summary>
-    public CheckResult CheckResult { get; set; }
+    public Tokenization Tokenization { get; set; }
 }

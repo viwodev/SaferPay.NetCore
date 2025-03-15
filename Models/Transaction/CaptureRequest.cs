@@ -32,11 +32,6 @@ public class CaptureRequest : RequestBase
     public Amount Amount { get; set; }
 
     /// <summary>
-    /// Optional Billpay specific options.
-    /// </summary>
-    public BillPay BillPay { get; set; }
-
-    /// <summary>
     /// Optional Marketplace capture parameters.
     /// </summary>
     public Marketplace Marketplace { get; set; }

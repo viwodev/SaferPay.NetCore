@@ -1,39 +1,38 @@
 ﻿using SaferPay.Models.Core;
 
-namespace SaferPay.Models.Transaction
+namespace SaferPay.Models.Transaction;
+
+public class InquireResponse : ResponseBase
 {
-    public class InquireResponse : ResponseBase
-    {
-        /// <summary>
-        /// Information about the transaction
-        /// </summary>
-        public TransactionItem Transaction { get; set; }
+    /// <summary>
+    /// Information about the transaction
+    /// </summary>
+    public TransactionItem Transaction { get; set; }
 
-        /// <summary>
-        /// Information about the means of payment
-        /// </summary>
-        public PaymentMeans PaymentyMeans { get; set; }
+    /// <summary>
+    /// Information about the means of payment
+    /// </summary>
+    public PaymentMeans PaymentyMeans { get; set; }
 
-        /// <summary>
-        /// Information about the payer / card holder
-        /// </summary>
-        public Payer Payer { get; set; }
+    /// <summary>
+    /// Information about the payer / card holder
+    /// </summary>
+    public Payer Payer { get; set; }
 
-        /// <summary>
-        /// LiabilityShift information, replaces ThreeDs Info from api version 1.8
-        /// </summary>
-        public Liability Liability { get; set; }
+    /// <summary>
+    /// LiabilityShift information, replaces ThreeDs Info from api version 1.8
+    /// </summary>
+    public Liability Liability { get; set; }
 
-        /// <summary>
-        /// Dcc information, if applicable
-        /// </summary>
-        public Dcc Dcc { get; set; }
+    /// <summary>
+    /// Dcc information, if applicable
+    /// </summary>
+    public Dcc Dcc { get; set; }
 
-        /// <summary>
-        /// Contains details of a performed fraud prevention check
-        /// </summary>
-        public FraudPrevention FraudPrevention { get; set; }
+    /// <summary>
+    /// Contains details of a performed fraud prevention check
+    /// </summary>
+    public FraudPrevention FraudPrevention { get; set; }
 
 
-    }
 }
