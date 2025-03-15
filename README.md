@@ -24,7 +24,7 @@ You can find Test Cards and explanation of usage at `https://docs.saferpay.com/h
 + Implemented all methods
 + Payment Page Methods : `Initialize`, `Assert`
 + Transaction Methods : `Initialize`, `Authorize`, `AuthorizeDirect`, `AuthorizeReferenced`, `Capture`, `MultipartCapture`, `AssertCapture`, `MultipartFinalize`, `Refund`, `AssertRefund`, `RefundDirect`, `Cancel`, `RedirectPayment`, `AssertRedirectPayment`, `Inquire`, `AlternativePayment`, `QueryAlternativePayment`        
-+ Secure Card Data : `Insert`, `AssertInsert`, `InsertDirect`, `Update`, `Delete`
++ Secure Card Data : `Insert`, `AssertInsert`, `InsertDirect`, `Update`, `Delete`, `Inquire`
 + Batch : `Close`
 + Omni Channel : `InsertAlias`, `AcquireTransaction`
 
