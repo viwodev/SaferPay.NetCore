@@ -3,7 +3,7 @@
 namespace SaferPay.Enums;
 
 /// <summary>
-/// V: 1.43
+/// V: 1.45
 /// </summary>
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
 public enum PaymentPagePaymentMethods
@@ -13,7 +13,6 @@ public enum PaymentPagePaymentMethods
     AMEX,
     BANCONTACT,
     BLIK,
-    BONUS,
     DINERS,
     CARD,
     DIRECTDEBIT,
@@ -26,11 +25,11 @@ public enum PaymentPagePaymentMethods
     KLARNA,
     MAESTRO,
     MASTERCARD,
-    MYONE,
     PAYCONIQ,
     PAYDIREKT,
     PAYPAL,
     POSTFINANCEPAY,
+    REKA,
     SOFORT,
     TWINT,
     UNIONPAY,
