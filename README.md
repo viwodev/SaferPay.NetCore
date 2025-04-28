@@ -2,7 +2,7 @@
 
 This repository is an implementation of the `SaferPay.Net` library (`https://github.com/bmbsqd/saferpay-net`), with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient, and all methods extented by sync and async call. 
 
-The implementation is based on the latest version of the JSON API, v1.43, which can be found at the following URL: `http://saferpay.github.io/jsonapi/#ChapterTransaction`.
+The implementation is based on the latest version of the JSON API, v1.45, which can be found at the following URL: `http://saferpay.github.io/jsonapi/#ChapterTransaction`.
 
 You can find Test Cards and explanation of usage at `https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay`
 
@@ -24,7 +24,7 @@ You can find Test Cards and explanation of usage at `https://docs.saferpay.com/h
 + Implemented all methods
 + Payment Page Methods : `Initialize`, `Assert`
 + Transaction Methods : `Initialize`, `Authorize`, `AuthorizeDirect`, `AuthorizeReferenced`, `Capture`, `MultipartCapture`, `AssertCapture`, `MultipartFinalize`, `Refund`, `AssertRefund`, `RefundDirect`, `Cancel`, `RedirectPayment`, `AssertRedirectPayment`, `Inquire`, `AlternativePayment`, `QueryAlternativePayment`        
-+ Secure Card Data : `Insert`, `AssertInsert`, `InsertDirect`, `Update`, `Delete`
++ Secure Card Data : `Insert`, `AssertInsert`, `InsertDirect`, `Update`, `Delete`, `Inquire`
 + Batch : `Close`
 + Omni Channel : `InsertAlias`, `AcquireTransaction`
 
