@@ -1,10 +1,21 @@
 using Newtonsoft.Json;
+using SaferPay.Models.Attributes;
+using SaferPay.Models.PaymentPage;
 
 namespace SaferPay.Models.Core;
 
+
 /// <summary>
-/// Notification options
+/// Represents the notification settings for a transaction, including URLs for asynchronous notifications and email
+/// addresses for confirmation messages.
 /// </summary>
+/// <remarks>
+/// This class is used to configure various notification endpoints and email recipients for
+/// transaction-related events, such as success, failure, or pending states. It supports both merchant and payer
+/// notifications.<br/><br/>
+/// Update Version : <see langword="1.46"/> <br/>
+/// Updated At : <see langword="2025-05-16"/> <br/> 
+/// </remarks>
 public class Notification
 {
 
@@ -13,6 +24,8 @@ public class Notification
     /// <br/><br/><i>Example: https://merchanthost/notify/123</i>
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    [FieldUsage(typeof(InitializePaymentPageRequest))]
+    [Recommended]
     public string FailNotifyUrl { get; set; }
 
 
@@ -21,6 +34,7 @@ public class Notification
     /// <i>Example: ["merchant1@saferpay.com", "merchant2@saferpay.com"]</i>
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    [FieldUsage(typeof(InitializePaymentPageRequest))]
     public List<string> MerchantEmails { get; set; }
 
 
@@ -29,6 +43,7 @@ public class Notification
     /// <br/><br/><i>Example: payer@saferpay.com</i>
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    [FieldUsage(typeof(InitializePaymentPageRequest))]
     public string PayerDccReceiptEmail { get; set; }
 
 
@@ -36,6 +51,7 @@ public class Notification
     /// Email address to which a confirmation email will be sent to the payer after successful authorizations.
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    [FieldUsage(typeof(InitializePaymentPageRequest))]
     public string PayerEmail { get; set; }
 
 
@@ -44,6 +60,8 @@ public class Notification
     /// <br/><br/><i>Example: https://merchanthost/notify/123</i>
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    [FieldUsage(typeof(InitializePaymentPageRequest))]
+    [Recommended]
     public string SuccessNotifyUrl { get; set; }
 
 

@@ -3,9 +3,7 @@ using SaferPay.Models.Mastercard;
 
 namespace SaferPay.Models.PaymentPage;
 
-/// <summary>
-/// 
-/// </summary>
+
 public class AssertResponse : ResponseBase
 {
 

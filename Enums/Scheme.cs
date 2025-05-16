@@ -3,11 +3,11 @@
 namespace SaferPay.Enums;
 
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-public enum DeliveryTypes
+public enum Scheme
 {
-    EMAIL,
-    SHOP,
-    HOMEDELIVERY,
-    PICKUP,
-    HQ
+    MASTERCARD, 
+    VISA, 
+    JCB, 
+    DINERS, 
+    AMEX
 }

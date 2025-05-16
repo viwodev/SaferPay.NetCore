@@ -1,11 +1,19 @@
-﻿using SaferPay.Models.Attributes;
+﻿using SaferPay.Enums;
+using SaferPay.Models.Attributes;
 using System.Globalization;
 
 namespace SaferPay.Models.Core;
 
 /// <summary>
-/// Amount data (currency, value, etc.)
+/// Represents a monetary amount with a value in minor units and an associated currency code.
 /// </summary>
+/// <remarks>
+/// The <see cref="Amount"/> class is used to handle monetary values in their minor unit representation.
+/// For example, an amount of 1.00 in CHF would be represented as 100 in the <see cref="Value"/> property. The currency
+/// is specified using the ISO 4217 3-letter currency code.<br/><br/>
+/// Update Version : <see langword="1.46"/> <br/>
+/// Updated At : <see langword="2025-05-16"/> <br/> 
+/// </remarks>
 public class Amount
 {
 
@@ -15,6 +23,12 @@ public class Amount
     public Amount(decimal amount, string currencyCode)
     {
         CurrencyCode = currencyCode;
+        Value = (amount * 100).ToString("n0", new CultureInfo("en-US")).Replace(".", "").Replace(",", "");
+    }
+
+    public Amount(decimal amount, CurrencyCodes currencyCode)
+    {
+        CurrencyCode = currencyCode.ToString().ToUpper();
         Value = (amount * 100).ToString("n0", new CultureInfo("en-US")).Replace(".", "").Replace(",", "");
     }
     #endregion

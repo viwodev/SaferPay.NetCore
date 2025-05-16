@@ -1,15 +1,15 @@
-# SaferPay.NetCore Json Api V1.45
+# SaferPay.NetCore Json Api V1.46
 
 This repository is an implementation of the `SaferPay.Net` library (`https://github.com/bmbsqd/saferpay-net`), with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient, and all methods extented by sync and async call. 
 
-The implementation is based on the latest version of the JSON API, v1.45, which can be found at the following URL: `http://saferpay.github.io/jsonapi/#ChapterTransaction`.
+The implementation is based on the latest version of the JSON API, v1.46, which can be found at the following URL: `http://saferpay.github.io/jsonapi/#ChapterTransaction`.
 
 You can find Test Cards and explanation of usage at `https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay`
 
 ### What's New
 + Upgrade to `.NetCore 6.0`
 + HttpClient has been replaced by `RestSharp`
-+ Updated to use the latest version of the JSON API, `v1.45`
++ Updated to use the latest version of the JSON API, `v1.46`
 + Replaced `BaseUri` with `SandBox` mode, and BaseUri is now generated based on SandBox mode for testing or live.
 + Updated and improved constructors for easier usage.
 + Added descriptions to Properties based on api document.
@@ -158,3 +158,12 @@ if (result != null && result.IsSuccess)
     Console.Write("Error !");
 }
 ```
+
+### Changelog
+`v1.46`
++ Updated to use the latest version of the JSON API, `v1.46`
++ Added new subcontainer `ExternalThreeDS` to container `Authentication`. This affects the following requests: `Transaction/AuthorizeDirect`
++ Updated `AuthorizeDirect` method to use the new `ExternalThreeDS` subcontainer.
+
+`v1.45.01`
++ Added `REKA` as alternative payment method to `PaymentPagePaymentMethods`.

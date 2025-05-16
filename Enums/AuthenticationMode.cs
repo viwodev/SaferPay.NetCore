@@ -3,11 +3,8 @@
 namespace SaferPay.Enums;
 
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-public enum DeliveryTypes
+public enum AuthenticationMode
 {
-    EMAIL,
-    SHOP,
-    HOMEDELIVERY,
-    PICKUP,
-    HQ
+    CHALLENGE, 
+    FRICTIONLESS
 }

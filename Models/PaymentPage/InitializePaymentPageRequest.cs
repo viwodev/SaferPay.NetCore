@@ -25,8 +25,11 @@ public class InitializePaymentPageRequest : RequestBase
     #region Props
 
     /// <summary>
-    /// Strong Customer Authentication (exemptions, ...)
+    /// Strong Customer Authentication (exemptions, ...)<br/><br/>
     /// </summary>
+    /// <remarks>
+    /// An <see cref="SaferPay.Models.Core.Authentication"></see> model.
+    /// </remarks>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Authentication Authentication { get; set; }
 
@@ -51,8 +54,14 @@ public class InitializePaymentPageRequest : RequestBase
     /// <summary>
     /// Optional Condition for Authorization (only 3DSv2), to control, whether or not, transactions without LiabilityShift should be accepted. Important Note: This only filters out transactions, where the condition is conclusive before the authorization itself. It is possible, that LiabilityShift is rejected after the authorization. Please always check the Liability container, within the authorization-response, to be 100% sure, if LiabilityShift applies, or not!
     /// <i>Default: NONE(empty)</i><br/><br/>
-    /// <i>Possible values: NONE, THREE_DS_AUTHENTICATION_SUCCESSFUL_OR_ATTEMPTED.</i>
     /// </summary>
+    /// <remarks>
+    /// Possible values:
+    /// <list type="bullet">
+    /// <item><see cref="AuthorizeConditionTypes.NONE"/></item>
+    /// <item><see cref="AuthorizeConditionTypes.THREE_DS_AUTHENTICATION_SUCCESSFUL_OR_ATTEMPTED"/></item>
+    /// </list>
+    /// </remarks>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public AuthorizeConditionTypes Condition { get; set; }
 
@@ -106,10 +115,43 @@ public class InitializePaymentPageRequest : RequestBase
 
 
     /// <summary>
-    /// Used to restrict the means of payment which are available to the payer for this transaction. If only one payment method id is set, the payment selection step will be skipped.<br/><br/>
-    /// <i>Possible values: ACCOUNTTOACCOUNT, ALIPAY, AMEX, BANCONTACT, BLIK, BONUS, DINERS, CARD, DIRECTDEBIT, EPRZELEWY, EPS, GIROPAY, IDEAL, INVOICE, JCB, KLARNA, MAESTRO, MASTERCARD, MYONE, PAYCONIQ, PAYDIREKT, PAYPAL, POSTFINANCEPAY, SOFORT, TWINT, UNIONPAY, VISA, WECHATPAY, WLCRYPTOPAYMENTS.</i><br/><br/>
+    /// Used to restrict the means of payment which are available to the payer for this transaction. If only one payment method id is set, the payment selection step will be skipped.<br/><br/>    
     /// <i>Example: ["VISA", "MASTERCARD"]</i>
     /// </summary>
+    /// <remarks>
+    /// <i>Possible values:</i>
+    /// <list type="bullet">
+    /// <item><see cref="PaymentPagePaymentMethods.ACCOUNTTOACCOUNT"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.ALIPAY"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.AMEX"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.BANCONTACT"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.BLIK"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.DINERS"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.CARD"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.DIRECTDEBIT"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.EPRZELEWY"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.EPS"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.GIROPAY"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.IDEAL"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.INVOICE"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.JCB"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.KLARNA"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.MAESTRO"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.MASTERCARD"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.PAYCONIQ"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.PAYDIREKT"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.PAYPAL"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.POSTFINANCEPAY"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.REKA"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.SOFORT"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.TWINT"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.UNIONPAY"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.VISA"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.WECHATPAY"/></item>
+    /// <item><see cref="PaymentPagePaymentMethods.WLCRYPTOPAYMENTS"/></item>
+    /// </list>
+    /// </remarks>
+
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public List<PaymentPagePaymentMethods> PaymentMethods { get; set; }
 

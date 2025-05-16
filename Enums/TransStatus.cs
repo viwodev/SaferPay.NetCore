@@ -3,11 +3,10 @@
 namespace SaferPay.Enums;
 
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-public enum DeliveryTypes
+public enum TransStatus
 {
-    EMAIL,
-    SHOP,
-    HOMEDELIVERY,
-    PICKUP,
-    HQ
+    Y,
+    A,
+    U,
+    I
 }

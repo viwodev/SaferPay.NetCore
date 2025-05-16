@@ -2,5 +2,5 @@
 
 public static class SaferPayApiConstants
 {
-    public const string Version = "1.45";
+    public const string Version = "1.46";
 }

@@ -6,7 +6,13 @@ namespace SaferPay.Models.Core
 
         public string Json()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            var settings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, settings);
         }
     }
 }

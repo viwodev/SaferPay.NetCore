@@ -1,4 +1,5 @@
-﻿using SaferPay.Interfaces;
+﻿using SaferPay.Extensions;
+using SaferPay.Interfaces;
 using SaferPay.Models.Core;
 using SaferPay.Models.Transaction;
 using System.Diagnostics;
@@ -90,7 +91,8 @@ namespace SaferPay.Test
             Console.WriteLine(" 5. OmniChannel");
             Console.WriteLine();
             Console.WriteLine(" 6. Show Tokens");
-            Console.WriteLine(" 7. Exit");
+            Console.WriteLine(" 7. Json Converter");
+            Console.WriteLine(" 8. Exit");
             Console.WriteLine();
             Console.WriteLine(" Please select an option ...");
 
@@ -136,6 +138,32 @@ namespace SaferPay.Test
                         break;
 
                     case 7:
+                        var model = new Payer()
+                        {
+                            AcceptHeader = "text/html",
+                            ColorDepth = "16bits",
+                            Id = "REF123456",
+                            IpAddress = "127.0.0.1",
+                            JavaEnabled = true,
+                            JavaScriptEnabled = true,
+                            LanguageCode = Enums.Languages.Turkish,
+                            ScreenWidth = 2176,
+                            ScreenHeight = 1440,
+                            UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"
+
+                        };
+
+                        var jsonString = model.ToJson();
+
+                        Console.WriteLine();
+                        Console.WriteLine(jsonString, color.Green);
+                        Console.WriteLine();
+                        Console.WriteLine("Press any key to continue", color.Gray);
+                        Console.ReadLine();
+                        PrintMenu();
+                        break;
+
+                    case 8:
                         ExitConsole = true;
                         return;
 
@@ -569,7 +597,7 @@ namespace SaferPay.Test
                 Enums.PaymentPagePaymentMethods.VISA,
                 Enums.PaymentPagePaymentMethods.BLIK,
                 Enums.PaymentPagePaymentMethods.WECHATPAY,
-                Enums.PaymentPagePaymentMethods.POSTFINANCEPAY,                
+                Enums.PaymentPagePaymentMethods.POSTFINANCEPAY,
                 Enums.PaymentPagePaymentMethods.PAYPAL };
 
             request.Notification = new Models.Core.Notification();

@@ -1,64 +1,64 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/viwodev/SaferPay.NetCore</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Description>SaferPay Json Api V:1.45 NetCore</Description>
-    <Version>1.45.02</Version>
-    <Company>Viwo</Company>
-    <Product>SaferPay.NetCore</Product>
-    <Title>SaferPay.NetCore</Title>
-    <RepositoryUrl>https://github.com/viwodev/SaferPay.NetCore</RepositoryUrl>
-    <PackageId>SaferPay.Netcore</PackageId>
-    <Authors>Rasim H.</Authors>
-    <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageTags>saferpay, net core, c#</PackageTags>
-    <FileVersion>1.45.01</FileVersion>
-    <AssemblyVersion>1.45.01</AssemblyVersion>
-    <PackageIcon>viwo-power.png</PackageIcon>
-    <RepositoryType>git</RepositoryType>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/viwodev/SaferPay.NetCore</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>SaferPay Json Api V:1.46 NetCore</Description>
+		<Version>1.46</Version>
+		<Company>Viwo</Company>
+		<Product>SaferPay.NetCore</Product>
+		<Title>SaferPay.NetCore</Title>
+		<RepositoryUrl>https://github.com/viwodev/SaferPay.NetCore</RepositoryUrl>
+		<PackageId>SaferPay.Netcore</PackageId>
+		<Authors>Rasim H.</Authors>
+		<EnablePackageValidation>true</EnablePackageValidation>
+		<PackageTags>saferpay, net core, c#</PackageTags>
+		<FileVersion>1.46</FileVersion>
+		<AssemblyVersion>1.46</AssemblyVersion>
+		<PackageIcon>viwo-power.png</PackageIcon>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="SaferPay.Test\**" />
-    <EmbeddedResource Remove="SaferPay.Test\**" />
-    <None Remove="SaferPay.Test\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="SaferPay.Test\**" />
+		<EmbeddedResource Remove="SaferPay.Test\**" />
+		<None Remove="SaferPay.Test\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Helpers\JsonHelpers.cs" />
-    <Compile Remove="Models\Core\InitializationCard.cs" />
-    <Compile Remove="Models\Core\InitializationPaymentMeans.cs" />
-    <Compile Remove="Models\Core\InitializationResponseRedirect.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Helpers\JsonHelpers.cs" />
+		<Compile Remove="Models\Core\InitializationCard.cs" />
+		<Compile Remove="Models\Core\InitializationPaymentMeans.cs" />
+		<Compile Remove="Models\Core\InitializationResponseRedirect.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\..\..\viwo\viwo-power.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\..\viwo\viwo-power.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="112.1.0" />
-    <PackageReference Include="System.Text.Json" Version="8.0.5" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="RestSharp" Version="112.1.0" />
+		<PackageReference Include="System.Text.Json" Version="8.0.5" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

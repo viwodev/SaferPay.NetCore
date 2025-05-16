@@ -2,6 +2,20 @@ using SaferPay.Enums;
 
 namespace SaferPay.Models.Core;
 
+/// <summary>
+/// Represents the address and personal details of a payer, including contact information,  location, and optional
+/// company details.
+/// </summary>
+/// <remarks>
+/// This class is used to store and manage information about a payer, such as their name,  address,
+/// contact details, and other relevant attributes. It supports both individual  and company payers, with fields for
+/// personal and business-specific data.  The <see cref="CountryCode"/> and <see cref="CountrySubdivisionCode"/>
+/// properties  follow ISO standards for country and region codes, with a non-standard exception for Kosovo.  Note: Some
+/// fields, such as <see cref="Street2"/> and <see cref="VatNumber"/>, may not  be supported by all acquirers or may be
+/// optional depending on the use case.<br/><br/>
+/// Update Version : <see langword="1.46"/> <br/>
+/// Updated At : <see langword="2025-05-16"/> <br/> 
+/// </remarks>
 public class PayerAddress
 {
     /// <summary>
