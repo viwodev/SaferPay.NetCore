@@ -24,6 +24,12 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DebugType>embedded</DebugType>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Compile Remove="SaferPay.Test\**" />
 		<EmbeddedResource Remove="SaferPay.Test\**" />
