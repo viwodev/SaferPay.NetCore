@@ -76,22 +76,32 @@ jobs:
       run: dotnet test --configuration Release
 
   deploy:
-    # Sadece Release yayınlandıysa çalışır
-    if: github.event_name == 'release'
-    runs-on: ubuntu-latest
-    needs: [ validate_nuget, run_test ] # Test ve doğrulama bitmeden yayınlamaz
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: nuget
-          path: ${{ env.NuGetDirectory }}
+      if: github.event_name == 'release'
+      runs-on: ubuntu-latest
+      needs: [ validate_nuget, run_test ]
+      steps:
+        - uses: actions/download-artifact@v4
+          with:
+            name: nuget
+            path: ${{ env.NuGetDirectory }}
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v4
+          with:
+            # GitHub Packages kaynağını tanıtıyoruz (NuGet.org zaten varsayılan olarak vardır)
+            source-url: https://nuget.pkg.github.com/viwodev/index.json
+          env:
+            NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # NuGet.org'a yükleme işlemi
-      - name: Publish NuGet package
-        run: |
-          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-              dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-          }
+        - name: Publish to BOTH NuGet.org and GitHub Packages
+          run: |
+            foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
+                
+                # 1. ADIM: NuGet.org'a Yükle (Senin oluşturduğun NUGET_APIKEY'i kullanır)
+                Write-Host "Publishing to NuGet.org..."
+                dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+                # 2. ADIM: GitHub Packages'a Yükle (Otomatik GITHUB_TOKEN kullanır)
+                Write-Host "Publishing to GitHub Packages..."
+                dotnet nuget push $file --api-key "${{ secrets.GITHUB_TOKEN }}" --source "https://nuget.pkg.github.com/viwodev/index.json" --skip-duplicate
+            }
