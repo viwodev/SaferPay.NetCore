@@ -89,6 +89,11 @@
         public const string TransactionInquire = "Inquire";
 
         /// <summary>
+        /// Request URL:        POST: /Payment/v1/Transaction/DccInquiry
+        /// </summary>
+        public const string TransactionDccInquiry = "DccInquiry";
+
+        /// <summary>
         /// Request URL:        POST: /Payment/v1/Transaction/AlternativePayment
         /// </summary>
         public const string TransactionAlternativePayment = "AlternativePayment";

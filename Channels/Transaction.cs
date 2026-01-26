@@ -256,4 +256,18 @@ public class Transaction : ITransaction
     }
     #endregion
 
+    #region DccInquiry
+    public DccInquiryResponse DccInquire(DccInquiryRequest request)
+    {
+        if (_client != null) return _client.Send<DccInquiryResponse, DccInquiryRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionDccInquiry, request);
+        return null;
+    }
+
+    public Task<DccInquiryResponse> DccInquiryAsync(DccInquiryRequest request)
+    {
+        if (_client != null) return _client.SendAsync<DccInquiryResponse, DccInquiryRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionDccInquiry, request);
+        return null;
+    }
+    #endregion
+
 }

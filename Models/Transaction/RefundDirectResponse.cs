@@ -14,4 +14,5 @@ public class RefundDirectResponse : ResponseBase
     /// Information about the transaction
     /// </summary>
     public TransactionItem Transaction { get; set; }
+
 }

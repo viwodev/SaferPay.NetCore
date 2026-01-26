@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace SaferPay.Enums
+namespace SaferPay.Enums;
+
+[Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
+public enum CheckTypes
 {
-    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-    public enum CheckTypes
-    {
-        ONLINE, 
-        ONLINE_STRONG
-    }
+    ONLINE,
+    ONLINE_STRONG
 }

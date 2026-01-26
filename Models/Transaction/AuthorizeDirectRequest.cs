@@ -1,10 +1,6 @@
-﻿using Newtonsoft.Json;
-using SaferPay.Enums;
+﻿using SaferPay.Enums;
 using SaferPay.Models.Attributes;
 using SaferPay.Models.Core;
-using System.ComponentModel;
-using System.Runtime.Intrinsics.X86;
-using System.Security.Principal;
 
 namespace SaferPay.Models.Transaction;
 
@@ -18,6 +14,12 @@ public class AuthorizeDirectRequest : RequestBase
     /// Authentication information for this transaction.
     /// </summary>
     public Authentication Authentication { get; set; }
+
+
+    /// <summary>
+    /// Reference to DccInquiry and payer's decision whether he accepts or declines DCC offer
+    /// </summary>
+    public Dcc Dcc { get; set; }
 
 
     /// <summary>

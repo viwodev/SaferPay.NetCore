@@ -1,32 +1,33 @@
-# SaferPay.NetCore Json Api V1.46
+# SaferPay.NetCore Json Api V1.50
 
-This repository is an implementation of the `SaferPay.Net` library (`https://github.com/bmbsqd/saferpay-net`), with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient, and all methods extented by sync and async call. 
+This repository is an implementation of the [SaferPay.Net](https://github.com/bmbsqd/saferpay-net) library, with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient. All methods have been extended with sync and async calls.
 
-The implementation is based on the latest version of the JSON API, v1.46, which can be found at the following URL: `http://saferpay.github.io/jsonapi/#ChapterTransaction`.
+The implementation is based on the latest version of the JSON API, **v1.50**, which can be found at the following URL: http://saferpay.github.io/jsonapi/#ChapterTransaction
 
-You can find Test Cards and explanation of usage at `https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay`
+You can find Test Cards and explanation of usage at: https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay
 
 ### What's New
 + Upgrade to `.NetCore 6.0`
 + HttpClient has been replaced by `RestSharp`
-+ Updated to use the latest version of the JSON API, `v1.46`
-+ Replaced `BaseUri` with `SandBox` mode, and BaseUri is now generated based on SandBox mode for testing or live.
++ Updated to use the latest version of the JSON API, `v1.50`
++ Replaced `BaseUri` with `SandBox` mode. BaseUri is now generated based on SandBox mode for testing or live environments.
 + Updated and improved constructors for easier usage.
-+ Added descriptions to Properties based on api document.
++ Added descriptions to Properties based on the API documentation.
 + Converted string properties to Enum values.
-+ Added Examples and Test Console App in Solution.
-+ Added Interface Channels to ease of usage.
-+ Added Extensions for most used methods directly use in client.
++ Added Examples and Test Console App in the Solution.
++ Added Interface Channels for ease of usage.
++ Added Extensions for the most used methods for direct use in the client.
 + Added `IsSuccess` and `Error` properties in ResultObject.
-+ Updated all enum values, models, interfaces.
++ Updated all enum values, models, and interfaces.
 
 ### Methods
-+ Implemented all methods
-+ Payment Page Methods : `Initialize`, `Assert`
-+ Transaction Methods : `Initialize`, `Authorize`, `AuthorizeDirect`, `AuthorizeReferenced`, `Capture`, `MultipartCapture`, `AssertCapture`, `MultipartFinalize`, `Refund`, `AssertRefund`, `RefundDirect`, `Cancel`, `RedirectPayment`, `AssertRedirectPayment`, `Inquire`, `AlternativePayment`, `QueryAlternativePayment`        
-+ Secure Card Data : `Insert`, `AssertInsert`, `InsertDirect`, `Update`, `Delete`, `Inquire`
-+ Batch : `Close`
-+ Omni Channel : `InsertAlias`, `AcquireTransaction`
+Implemented all methods:
+
++ **Payment Page Methods:** `Initialize`, `Assert`
++ **Transaction Methods:** `Initialize`, `Authorize`, `AuthorizeDirect`, `AuthorizeReferenced`, `Capture`, `MultipartCapture`, `AssertCapture`, `MultipartFinalize`, `Refund`, `AssertRefund`, `RefundDirect`, `Cancel`, `RedirectPayment`, `AssertRedirectPayment`, `Inquire`, `AlternativePayment`, `QueryAlternativePayment`, `DccInquiry`        
++ **Secure Card Data:** `Insert`, `AssertInsert`, `InsertDirect`, `Update`, `Delete`, `Inquire`
++ **Batch:** `Close`
++ **Omni Channel:** `InsertAlias`, `AcquireTransaction`
 
 ### Global Settings and Usage (With Client Extensions)
 
@@ -160,6 +161,18 @@ if (result != null && result.IsSuccess)
 ```
 
 ### Changelog
+
+`v1.50`
++ Updated to use the latest version of the JSON API, `v1.50`
++ Added value `ONLINE_STRONG` to Type in the `Check` container and added new container `ExternalThreeDS` in `Alias/InsertDirect`
++ Added `GIFTCARD` as valid value for the field `PaymentMethods`
++ Introduced a new function to provide Dynamic Currency Conversion (`DCC`) inquiry details for your customer: `Transaction\DccInquiry`
++ The payment methods `GIROPAY`, `PAYDIREKT`, `SOFORT` and `WLCRYPTOPAYMENTS` are no longer supported.
++ `Transaction/AuthorizeDirect` is extended with the new subcontainer `DCC`, which references the response from `Transaction/DccInquiry` and payer's decision whether he accepts or declines `DCC` offer
++ Added `WERO` as valid value for the field `PaymentMethods`
++ Added `HolderName` and `IBAN` to the BankAccount container in `PaymentPage/Assert`
++ `Transaction/RefundDirect` is extended with the new subcontainer `BankAccount`. This is a required container for PostFinance Instant Payout
+
 `v1.46`
 + Updated to use the latest version of the JSON API, `v1.46`
 + Added new subcontainer `ExternalThreeDS` to container `Authentication`. This affects the following requests: `Transaction/AuthorizeDirect`

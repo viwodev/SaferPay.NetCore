@@ -1,6 +1,5 @@
 ﻿using SaferPay.Enums;
 using SaferPay.Models.Attributes;
-using System.Net;
 
 namespace SaferPay.Models.Core;
 

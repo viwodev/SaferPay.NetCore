@@ -7,6 +7,11 @@ public class AuthorizeDirectResponse : ResponseBase
 {
 
     /// <summary>
+    /// Dcc information, if applicable
+    /// </summary>
+    public Dcc Dcc { get; set; }
+
+    /// <summary>
     /// Contains details of a performed fraud prevention check
     /// </summary>
     public FraudPrevention FraudPrevention { get; set; }

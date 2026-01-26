@@ -34,8 +34,12 @@ public enum PaymentMethodTypes
     [Description("eps")]
     EPS,
 
+    [Obsolete("The payment methods GIROPAY, PAYDIREKT, SOFORT and WLCRYPTOPAYMENTS are no longer supported w. V:1.49")]
     [Description("giropay")]
     GIROPAY,
+
+    [Description("Gift Card")]
+    GIFTCARD,
 
     [Description("iDEAL")]
     IDEAL,
@@ -58,6 +62,7 @@ public enum PaymentMethodTypes
     [Description("PayConiq")]
     PAYCONIQ,
 
+    [Obsolete("The payment methods GIROPAY, PAYDIREKT, SOFORT and WLCRYPTOPAYMENTS are no longer supported w. V:1.49")]
     [Description("paydirekt")]
     PAYDIREKT,
 
@@ -73,6 +78,7 @@ public enum PaymentMethodTypes
     [Description("Reka")]
     REKA,
 
+    [Obsolete("The payment methods GIROPAY, PAYDIREKT, SOFORT and WLCRYPTOPAYMENTS are no longer supported w. V:1.49")]
     [Description("Sofort by Klarna")]
     SOFORT,
 
@@ -85,9 +91,13 @@ public enum PaymentMethodTypes
     [Description("Visa & V PAY")]
     VISA,
 
+    [Obsolete("The payment methods GIROPAY, PAYDIREKT, SOFORT and WLCRYPTOPAYMENTS are no longer supported w. V:1.49")]
     [Description("WL Crypto Payments")]
     WLCRYPTOPAYMENTS,
 
     [Description("WECHATPAY")]
-    WECHATPAY
+    WECHATPAY,
+
+    [Description("WERO")]
+    WERO
 }

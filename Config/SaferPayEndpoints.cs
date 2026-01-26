@@ -2,6 +2,7 @@
 
 public static class SaferPayEndpoints
 {
+
     /// <summary>
     /// Version
     /// </summary>
@@ -31,4 +32,5 @@ public static class SaferPayEndpoints
     /// OmniChannel
     /// </summary>
     public const string OmniChannelEndpoint = "Payment/" + Version + "/OmniChannel/";
+
 }
