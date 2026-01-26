@@ -33,11 +33,13 @@ jobs:
       uses: actions/setup-dotnet@v4
 
     - name: Build project
-      run: dotnet build --configuration Release
+      run: dotnet build SaferPay/SaferPay.csproj --configuration Release
+      #run: dotnet build --configuration Release
 
     # Paketi oluşturur
     - name: Pack Nuget
-      run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+      run: dotnet pack SaferPay/SaferPay.csproj --configuration Release --output ${{ env.NuGetDirectory }}
+      #run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
 
     # Paketi diğer aşamalar için saklar
     - uses: actions/upload-artifact@v4
