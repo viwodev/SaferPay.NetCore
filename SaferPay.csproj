@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/viwodev/SaferPay.NetCore</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -38,13 +38,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\..\..\viwo\viwo-power.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="RestSharp" Version="112.1.0" />
 		<PackageReference Include="System.Text.Json" Version="8.0.5" />
@@ -58,6 +51,10 @@
 		<None Update="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="viwo-power.png">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 
