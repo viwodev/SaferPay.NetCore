@@ -8,5 +8,6 @@ public enum AliasType
     CARD,
     BANK_ACCOUNT,
     POSTFINANCEPAY,
-    TWINT
+    TWINT,
+    PAYPAL
 }

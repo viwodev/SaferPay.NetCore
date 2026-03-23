@@ -6,5 +6,6 @@ namespace SaferPay.Enums;
 public enum CheckTypes
 {
     ONLINE,
-    ONLINE_STRONG
+    ONLINE_STRONG,
+    ONLINE_CHALLENGED
 }

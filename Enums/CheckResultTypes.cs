@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace SaferPay.Enums
+namespace SaferPay.Enums;
+
+/// <summary>
+/// Updated V1.51
+/// </summary>
+[Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
+public enum CheckResultTypes
 {
-    [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-    public enum CheckResultTypes
-    {
-        OK, 
-        OK_AUTHENTICATED, 
-        NOT_PERFORMED
-    }
+    OK,
+    NOT_PERFORMED
 }

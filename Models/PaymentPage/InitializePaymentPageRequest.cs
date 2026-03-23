@@ -8,6 +8,7 @@ namespace SaferPay.Models.PaymentPage;
 /// <summary>
 /// Payment Page Init Request
 /// </summary>
+/// <remarks>Updated V1.51, removed INVOICE from PaymentMethods</remarks>
 public class InitializePaymentPageRequest : RequestBase
 {
 

@@ -9,5 +9,6 @@ public enum AuthenticationTypes
     FRICTIONLESS,
     ATTEMPT,
     EXEMPTION,
+    UNSPECIFIED,
     NONE
 }

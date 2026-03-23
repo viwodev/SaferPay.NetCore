@@ -86,6 +86,11 @@ public class Card
     public int ExpMonth { get; set; }
 
     /// <summary>
+    /// returns the funding source of the card. Only returned for Alias/AssertInsert, Alias/InsertDirect, Alias/Update and Alias/Inquire calls if available.<br/><br/>
+    /// </summary>
+    public FundingSourceTypes FundingSource { get; set; }
+
+    /// <summary>
     /// Name of the card holder<br/><br/>
     /// <i>Utf8[1..50]<br/>
     /// Example: John Doe</i>

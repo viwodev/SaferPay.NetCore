@@ -1,12 +1,11 @@
 ﻿using SaferPay.Models.Core;
 
-namespace SaferPay.Models.SecureData
+namespace SaferPay.Models.SecureData;
+
+public class AssertInsertRequest : RequestBase
 {
-    public class AssertInsertRequest : RequestBase
-    {
-        /// <summary>
-        /// Token returned by initial call.
-        /// </summary>
-        public string Token { get; set; }
-    }
+    /// <summary>
+    /// Token returned by initial call.
+    /// </summary>
+    public string Token { get; set; }
 }

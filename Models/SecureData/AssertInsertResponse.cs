@@ -1,22 +1,24 @@
 ﻿using SaferPay.Models.Core;
 
-namespace SaferPay.Models.SecureData
+namespace SaferPay.Models.SecureData;
+
+/// <summary>
+/// Updated V1.51, CheckResult
+/// </summary>
+public  class AssertInsertResponse :ResponseBase
 {
-    public  class AssertInsertResponse :ResponseBase
-    {
-        /// <summary>
-        /// Information about the registered alias.
-        /// </summary>
-        public Alias Alias { get; set; }
+    /// <summary>
+    /// Information about the registered alias.
+    /// </summary>
+    public Alias Alias { get; set; }
 
-        /// <summary>
-        /// Information about the registered means of payment
-        /// </summary>
-        public PaymentMeans PaymentMeans { get; set; }
+    /// <summary>
+    /// Information about the registered means of payment
+    /// </summary>
+    public PaymentMeans PaymentMeans { get; set; }
 
-        /// <summary>
-        /// Result of the Check
-        /// </summary>
-        public CheckResult CheckResult { get; set; }
-    }
+    /// <summary>
+    /// Result of the Check
+    /// </summary>
+    public CheckResult CheckResult { get; set; }
 }

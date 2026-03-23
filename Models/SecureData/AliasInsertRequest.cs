@@ -4,7 +4,7 @@ using SaferPay.Models.Core;
 namespace SaferPay.Models.SecureData;
 
 /// <summary>
-/// 
+/// Updated V1.51, Type
 /// </summary>
 public class AliasInsertRequest : RequestBase
 {
@@ -14,7 +14,8 @@ public class AliasInsertRequest : RequestBase
     public RegisterAlias RegisterAlias { get; set; }
 
     /// <summary>
-    /// Type of payment means to register
+    /// Type of payment means to register<br/><br/>
+    /// <i>Possible values: CARD, BANK_ACCOUNT, POSTFINANCEPAY, TWINT, PAYPAL.</i>
     /// </summary>
     public AliasType Type { get; set; }
 

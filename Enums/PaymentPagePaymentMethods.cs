@@ -3,7 +3,7 @@
 namespace SaferPay.Enums;
 
 /// <summary>
-/// V: 1.45
+/// V: 1.51 (Removed INVOICE from PaymentMethods)<br/><br/>
 /// </summary>
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
 public enum PaymentPagePaymentMethods
@@ -20,7 +20,6 @@ public enum PaymentPagePaymentMethods
     EPS,
     GIROPAY,
     IDEAL,
-    INVOICE,
     JCB,
     KLARNA,
     MAESTRO,

@@ -1,14 +1,27 @@
 ﻿using SaferPay.Enums;
+using SaferPay.Models.Attributes;
 
 namespace SaferPay.Models.Core;
 
+/// <summary>
+/// Updated V1.51
+/// </summary>
 public class AuthenticationResult
 {
+
     /// <summary>
-    /// The result of the card holder authentication.<br/><br/>
-    /// <i>Possible values: OK, NOT_SUPPORTED.</i>
+    /// Indicates whether Strong Customer Authentication (SCA) was successfully completed.
     /// </summary>
-    public AuthenticationResultTypes Result { get; set; }
+    [Mandatory]
+    public bool Authenticated { get; set; }
+
+
+    /// <summary>
+    /// Determines how the cardholder was authenticated during card registration.<br/><br/>
+    /// </summary>
+    /// <remarks>Possible values: STRONG_CUSTOMER_AUTHENTICATION, FRICTIONLESS, ATTEMPT, UNSPECIFIED, NONE.</remarks>
+    [Mandatory]
+    public AuthenticationTypes AuthenticationType { get; set; }
 
     /// <summary>
     /// More details, if available. Contents may change at any time, so don’t parse it.<br/><br/>
@@ -23,6 +36,6 @@ public class AuthenticationResult
 
     public override string ToString()
     {
-        return $"{Result.ToString()} [{Message}]";
+        return $"{AuthenticationType.ToString()} [{Message}]";
     }
 }

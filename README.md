@@ -1,15 +1,15 @@
-# SaferPay.NetCore Json Api V1.50
+﻿# SaferPay.NetCore Json Api V1.51
 
 This repository is an implementation of the [SaferPay.Net](https://github.com/bmbsqd/saferpay-net) library, with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient. All methods have been extended with sync and async calls.
 
-The implementation is based on the latest version of the JSON API, **v1.50**, which can be found at the following URL: http://saferpay.github.io/jsonapi/#ChapterTransaction
+The implementation is based on the latest version of the JSON API, **v1.51**, which can be found at the following URL: http://saferpay.github.io/jsonapi/#ChapterTransaction
 
 You can find Test Cards and explanation of usage at: https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay
 
 ### What's New
 + Upgrade to `.NetCore 6.0`
 + HttpClient has been replaced by `RestSharp`
-+ Updated to use the latest version of the JSON API, `v1.50`
++ Updated to use the latest version of the JSON API, `v1.51`
 + Replaced `BaseUri` with `SandBox` mode. BaseUri is now generated based on SandBox mode for testing or live environments.
 + Updated and improved constructors for easier usage.
 + Added descriptions to Properties based on the API documentation.
@@ -161,6 +161,16 @@ if (result != null && result.IsSuccess)
 ```
 
 ### Changelog
+
+`v1.51`
++ Updated to use the latest version of the JSON API, `v1.51`
++ added `PAYPAL` as valid value for field Type in `Alias/Insert`
++ added `ONLINE_CHALLENGED` as valid value for field Type of container `Check` in `Alias/Insert`
++ removed `OK_AUTHENTICATED` as valid value from field `Result` of container `CheckResult`. 
++ removed `INVOICE` as valid value from `PaymentMethods` in `PaymentPage/Initialize`
++ added fields `Authenticated` and `AuthenticationType` to container `AuthenticationResult`. Removed field `Result` from container in return.
++ added field `FundingSource` to container `Card`
++ field `CountryCode` in container `ForeignRetailer` is now mandatory.
 
 `v1.50`
 + Updated to use the latest version of the JSON API, `v1.50`
