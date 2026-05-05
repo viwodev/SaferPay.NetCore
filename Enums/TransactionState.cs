@@ -3,9 +3,10 @@
 namespace SaferPay.Enums;
 
 [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-public enum TerminalTypes
+public enum TransactionState
 {
-    ECOM, 
-    SPG, 
-    MPO
+    NONE,
+    SUCCESSFUL, 
+    FAILED, 
+    PENDING
 }

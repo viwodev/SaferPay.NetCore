@@ -1,15 +1,27 @@
-﻿# SaferPay.NetCore Json Api V1.51
+﻿# SaferPay.NetCore Json Api V1.52
 
 This repository is an implementation of the [SaferPay.Net](https://github.com/bmbsqd/saferpay-net) library, with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient. All methods have been extended with sync and async calls.
 
-The implementation is based on the latest version of the JSON API, **v1.51**, which can be found at the following URL: http://saferpay.github.io/jsonapi/#ChapterTransaction
+The implementation is based on the latest version of the JSON API, **v1.52**, which can be found at the following URL: http://saferpay.github.io/jsonapi/#ChapterTransaction
 
 You can find Test Cards and explanation of usage at: https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay
+
+### Test Pages
+
+**Create Test Account**
+```
+https://test.saferpay.com/BO/SignUp
+```
+
+**Login Test Account**
+```
+https://test.saferpay.com/BO/Login
+```
 
 ### What's New
 + Upgrade to `.NetCore 6.0`
 + HttpClient has been replaced by `RestSharp`
-+ Updated to use the latest version of the JSON API, `v1.51`
++ Updated to use the latest version of the JSON API, `v1.52`
 + Replaced `BaseUri` with `SandBox` mode. BaseUri is now generated based on SandBox mode for testing or live environments.
 + Updated and improved constructors for easier usage.
 + Added descriptions to Properties based on the API documentation.
@@ -28,6 +40,7 @@ Implemented all methods:
 + **Secure Card Data:** `Insert`, `AssertInsert`, `InsertDirect`, `Update`, `Delete`, `Inquire`
 + **Batch:** `Close`
 + **Omni Channel:** `InsertAlias`, `AcquireTransaction`
++ **Saferpay Management API:** `Licensing CustomerLicense`, `PaymentPageConfig GetConfigurations`, `SaferpayFieldsAccessToken CreateAccessToken`, `SaferpayFieldsAccessToken DeleteAccessToken`, `SecurePayGate Create SingleUsePaymentLink`, `SecurePayGate SingleUsePaymentLink`, `SecurePayGate Delete SingleUsePaymentLink`, `Terminal GetTerminal`, `Terminals GetTerminals`, `TransactionReporting GetTransactions`
 
 ### Global Settings and Usage (With Client Extensions)
 
@@ -161,6 +174,14 @@ if (result != null && result.IsSuccess)
 ```
 
 ### Changelog
+
+`v1.52`
++ Updated to use the latest version of the JSON API, `v1.52`
++ Added `Saferpay Management API`.
++ Added `PaymentPage GetConfigurations` method to Saferpay Management API
++ Added `WITH_SUCCESSFUL_THREE_DS_CHALLENGE` as a valid value for the field Condition
++ Added `MastercardTLID` to the `IssuerReference` container in the response
++ removed `PayerId` from the `PayPal` container
 
 `v1.51`
 + Updated to use the latest version of the JSON API, `v1.51`

@@ -1,4 +1,5 @@
 ﻿using SaferPay.Models.Core;
+using SaferPay.Models.Management;
 
 namespace SaferPay.Interfaces;
 
@@ -26,6 +27,36 @@ public interface ISaferPayClient : IDisposable
     /// <param name="request"></param>
     /// <returns></returns>
     TResponse Send<TResponse, TRequest>(string path, TRequest request) where TRequest : RequestBase where TResponse : ResponseBase;
+
+
+
+    #region RestMethods
+    TResponse Get<TResponse>(string path) where TResponse : RestResponseBase;
+    Task<TResponse> GetAsync<TResponse>(string path) where TResponse : RestResponseBase;
+
+
+    TResponse Get<TResponse, TRequest>(string path, TRequest request) where TRequest : RestRequestBase where TResponse : RestResponseBase;
+    Task<TResponse> GetAsync<TResponse, TRequest>(string path, TRequest request) where TRequest : RestRequestBase where TResponse : RestResponseBase;
+
+
+    TResponse Post<TResponse>(string path) where TResponse : RestResponseBase;
+    Task<TResponse> PostAsync<TResponse>(string path) where TResponse : RestResponseBase;
+
+
+    TResponse Post<TResponse, TRequest>(string path, TRequest request) where TRequest : RestRequestBase where TResponse : RestResponseBase;
+    Task<TResponse> PostAsync<TResponse, TRequest>(string path, TRequest request) where TRequest : RestRequestBase where TResponse : RestResponseBase;
+
+
+    TResponse Delete<TResponse>(string path) where TResponse : RestResponseBase;
+    Task<TResponse> DeleteAsync<TResponse>(string path) where TResponse : RestResponseBase;
+    #endregion
+
+
+
+    public string CustomerId { get; }
+
+
+    public string TerminalId { get; }
 
     /// <summary>
     /// Transaction Api Interface<br/><br/>
@@ -56,5 +87,11 @@ public interface ISaferPayClient : IDisposable
     /// Returns Omni Channel Api Instance
     /// </summary>
     public IOmniChannel OmniChannel { get; }
+
+
+    /// <summary>
+    /// This interface offers REST based access to various management features. This enables customers to integrate those features into their systems on a technical level.
+    /// </summary>
+    public IManagementApi ManagementApi { get; }
 
 }

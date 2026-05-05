@@ -61,6 +61,7 @@ public class InitializePaymentPageRequest : RequestBase
     /// <list type="bullet">
     /// <item><see cref="AuthorizeConditionTypes.NONE"/></item>
     /// <item><see cref="AuthorizeConditionTypes.THREE_DS_AUTHENTICATION_SUCCESSFUL_OR_ATTEMPTED"/></item>
+    /// <item><see cref="AuthorizeConditionTypes.WITH_SUCCESSFUL_THREE_DS_CHALLENGE"/></item>
     /// </list>
     /// </remarks>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

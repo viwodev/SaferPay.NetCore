@@ -27,6 +27,15 @@ namespace SaferPay.Models.Core
             }
         }
 
+        [JsonIgnore]
+        public Uri BaseRestUri
+        {
+            get
+            {
+                return SandBox ? new Uri("https://test.saferpay.com/") : new Uri("https://www.saferpay.com/");
+            }
+        }
+
         [JsonProperty("sandbox")]
         public bool SandBox { get; set; } = false;
 
