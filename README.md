@@ -1,6 +1,6 @@
 ﻿# SaferPay.NetCore Json Api V1.52
 
-This repository is an implementation of the [SaferPay.Net](https://github.com/bmbsqd/saferpay-net) library, with updates to use **.NetCore 6.0** and **RestSharp** instead of HttpClient. All methods have been extended with sync and async calls.
+This repository is an implementation of the [SaferPay.Net](https://github.com/bmbsqd/saferpay-net) library, with updates to use **.NetCore 8.0** and **RestSharp** instead of HttpClient. All methods have been extended with sync and async calls.
 
 The implementation is based on the latest version of the JSON API, **v1.52**, which can be found at the following URL: http://saferpay.github.io/jsonapi/#ChapterTransaction
 
@@ -19,7 +19,7 @@ https://test.saferpay.com/BO/Login
 ```
 
 ### What's New
-+ Upgrade to `.NetCore 6.0`
++ Upgrade to `.NetCore 8.0`
 + HttpClient has been replaced by `RestSharp`
 + Updated to use the latest version of the JSON API, `v1.52`
 + Replaced `BaseUri` with `SandBox` mode. BaseUri is now generated based on SandBox mode for testing or live environments.
@@ -174,6 +174,22 @@ if (result != null && result.IsSuccess)
 ```
 
 ### Changelog
+
+`v1.52.01`
++ Updated library target framework to `.NET 8.0`
++ Removed unsupported `.NET 6.0` and legacy test runtime targets
++ Improved overall package compatibility with current and future .NET runtimes
++ Fixed recursive `Dispose()` implementation causing `StackOverflowException`
++ Fixed missing `_jsonSerializerSettings` initialization in the 4-argument constructor
++ Improved `RestClient` lifecycle management to prevent socket/resource leaks under load
++ Fixed exception rethrow handling to preserve original stack traces
++ Normalized `CreditCardExpiration` year handling across constructor, setters and parsing
++ Fixed `CreditCardExpiration.Parse()` producing invalid `MMYYYY` values instead of `MMYY`
++ Improved `CreditCardExpiration.ToString()` formatting consistency
++ Updated package metadata and NuGet packaging configuration
++ Improved GitHub Actions build, validation and NuGet publishing workflow
++ Updated package validation and build pipeline for `.NET 8`
++ General reliability, maintainability and runtime compatibility improvements
 
 `v1.52`
 + Updated to use the latest version of the JSON API, `v1.52`

@@ -84,6 +84,7 @@ public static class Helpers
         Console.WriteLine();
         Console.WriteLine(" 7. Show Tokens");
         Console.WriteLine(" 8. Json Converter");
+        Console.WriteLine(" 9. Test Credit Card Expiration");
         Console.WriteLine(" 0. Exit");
         Console.WriteLine();
         Console.WriteLine(" Please select an option ...");
@@ -93,7 +94,7 @@ public static class Helpers
         var option = Console.ReadLine();
         int optionID = 0;
 
-        if (int.TryParse(option, out optionID) && optionID > 0 && optionID <= 7)
+        if (int.TryParse(option, out optionID) && optionID > 0 && optionID <= 9)
         {
             switch (optionID)
             {
@@ -159,6 +160,10 @@ public static class Helpers
                     PrintMenu();
                     break;
 
+                case 9:
+                    TestCreditCardExpiration();
+                    return;
+
                 case 0:
                     ExitConsole = true;
                     return;
@@ -223,6 +228,51 @@ public static class Helpers
 
         MultiPartFinalize
 
+    }
+
+    public static void TestCreditCardExpiration()
+    {
+        Console.Clear();
+        Console.WriteLine("*** CreditCardExpiration Tests ...", color.Gray);
+        Console.WriteLine();
+
+        var tests = new List<(string Name, string Expected, string Actual)>
+        {
+            ("Constructor 2030/12", "1230", new CreditCardExpiration(2030, 12).ToString()),
+            ("Constructor 30/12", "1230", new CreditCardExpiration(30, 12).ToString()),
+            ("Parse 12/2030", "1230", CreditCardExpiration.Parse("12/2030").ToString()),
+            ("Parse 12/30", "1230", CreditCardExpiration.Parse("12/30").ToString()),
+            ("Setter Year 2030", "1230", CreateBySetter(2030, 12).ToString()),
+            ("Setter Year 30", "1230", CreateBySetter(30, 12).ToString()),
+        };
+
+        foreach (var test in tests)
+        {
+            var passed = test.Expected == test.Actual;
+            Console.Write($"{test.Name} => ", color.Gray);
+            Console.Write(
+                passed ? "PASS" : "FAIL",
+                passed ? color.LimeGreen : color.Red
+            );
+            Console.WriteLine($" | Expected: {test.Expected}, Actual: {test.Actual}", color.Gray);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Press any key to continue ...", color.Gray);
+        Console.ReadLine();
+
+        PrintMenu();
+    }
+
+    private static CreditCardExpiration CreateBySetter(int year, int month)
+    {
+        var expiration = new CreditCardExpiration
+        {
+            Month = month,
+            Year = year
+        };
+
+        return expiration;
     }
 
     public static void ManagementApiPage(bool clear = true)

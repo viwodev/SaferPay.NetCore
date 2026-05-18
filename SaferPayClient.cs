@@ -153,8 +153,7 @@ public class SaferPayClient : ISaferPayClient
 
     public void Dispose()
     {
-        // The client holds no long-lived disposable state. RestClient instances
-        // are created and disposed per request, so there is nothing to release here.
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>
@@ -555,8 +554,6 @@ public class SaferPayClient : ISaferPayClient
         opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
         using var client = new RestClient(opt);
 
-        // Client'ın sınıf düzeyinde tek bir instance olduğunu varsayıyoruz. 
-        // Eğer metot içinde oluşturmak zorundaysanız bile RestRequest'i path ile başlatın.
         var req = new RestRequest(path, Method.Delete);
 
         req.AddHeader("Saferpay-ApiVersion", SaferPayApiConstants.Version);
