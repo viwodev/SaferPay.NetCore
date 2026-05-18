@@ -1,4 +1,4 @@
-﻿using SaferPay.Config;
+using SaferPay.Config;
 using SaferPay.Interfaces;
 using SaferPay.Models.Core;
 using SaferPay.Models.PaymentPage;
@@ -19,28 +19,29 @@ public class PaymentPage : IPaymentPage
 
     #region Ctors
     public PaymentPage(SaferPaySettings settings) => _client = new SaferPayClient(settings);
-    public PaymentPage(ISaferPayClient client) => _client = client;
-    public PaymentPage(string customerId, string terminalId, string userName, string passWord, bool sandBox = false) => _client = new SaferPayClient(new SaferPaySettings(customerId, terminalId, userName, passWord, sandBox));
+    public PaymentPage(ISaferPayClient client) => _client = client ?? throw new ArgumentNullException(nameof(client));
+    public PaymentPage(string customerId, string terminalId, string userName, string passWord, bool sandBox = false)
+        => _client = new SaferPayClient(new SaferPaySettings(customerId, terminalId, userName, passWord, sandBox));
     #endregion
 
     #region Methods
-    public AssertResponse Assert(AssertRequest request) => 
-        _client?.Send<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, request);
+    public AssertResponse Assert(AssertRequest request) =>
+        _client.Send<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, request);
 
     public AssertResponse Assert(string token) =>
-        _client?.Send<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, new AssertRequest(token));
+        _client.Send<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, new AssertRequest(token));
 
     public Task<AssertResponse> AssertAsync(AssertRequest request) =>
-        _client?.SendAsync<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, request);
+        _client.SendAsync<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, request);
 
     public Task<AssertResponse> AssertAsync(string token) =>
-        _client?.SendAsync<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, new AssertRequest(token));
+        _client.SendAsync<AssertResponse, AssertRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageAssert, new AssertRequest(token));
 
     public InitializePaymentPageResponse Initialize(InitializePaymentPageRequest request) =>
-        _client?.Send<InitializePaymentPageResponse, InitializePaymentPageRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageInitialize, request);
+        _client.Send<InitializePaymentPageResponse, InitializePaymentPageRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageInitialize, request);
 
     public Task<InitializePaymentPageResponse> InitializeAsync(InitializePaymentPageRequest request) =>
-        _client?.SendAsync<InitializePaymentPageResponse, InitializePaymentPageRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageInitialize, request);
+        _client.SendAsync<InitializePaymentPageResponse, InitializePaymentPageRequest>(SaferPayEndpoints.PaymentPageEndpoint + SaferPayMethods.PaymentPageInitialize, request);
     #endregion
 
     public override string ToString() => base.ToString() ?? "Payment Page";
