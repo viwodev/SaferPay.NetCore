@@ -39,9 +39,7 @@ public class SaferPayClient : ISaferPayClient
     public SaferPayClient(SaferPaySettings settings) : this(settings, JsonSettings.Default) { }
 
     public SaferPayClient(string customerId, string terminalId, string userName, string passWord, bool sandBox = false)
-    {
-        this._settings = new SaferPaySettings(customerId, terminalId, userName, passWord, sandBox);
-    }
+        : this(new SaferPaySettings(customerId, terminalId, userName, passWord, sandBox), JsonSettings.Default) { }
 
     public SaferPayClient(SaferPaySettings settings, JsonSerializerSettings jsonSerializerSettings)
     {
@@ -88,7 +86,7 @@ public class SaferPayClient : ISaferPayClient
             var opt = new RestClientOptions(uri);
             opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
 
-            var client = new RestClient(opt);
+            using var client = new RestClient(opt);
             var req = new RestRequest();
             req.Method = Method.Post;
 
@@ -131,7 +129,7 @@ public class SaferPayClient : ISaferPayClient
 
             if (_settings.ThrowExceptionOnFail)
             {
-                throw spex;
+                throw;
             }
         }
         catch (Exception ex)
@@ -146,7 +144,7 @@ public class SaferPayClient : ISaferPayClient
                 return response;
             }
 
-            throw ex;
+            throw;
 
         }
 
@@ -155,7 +153,8 @@ public class SaferPayClient : ISaferPayClient
 
     public void Dispose()
     {
-        this.Dispose();
+        // The client holds no long-lived disposable state. RestClient instances
+        // are created and disposed per request, so there is nothing to release here.
     }
 
     /// <summary>
@@ -177,7 +176,7 @@ public class SaferPayClient : ISaferPayClient
         var opt = new RestClientOptions(uri);
         opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
 
-        var client = new RestClient(opt);
+        using var client = new RestClient(opt);
         var req = new RestRequest();
         req.Method = Method.Post;
 
@@ -219,7 +218,7 @@ public class SaferPayClient : ISaferPayClient
         var opt = new RestClientOptions(uri);
 
         opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        var client = new RestClient(opt);
+        using var client = new RestClient(opt);
 
         var req = new RestRequest();
         req.Method = Method.Get;
@@ -294,7 +293,7 @@ public class SaferPayClient : ISaferPayClient
         var opt = new RestClientOptions(_settings.BaseUri);
 
         opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        var client = new RestClient(opt);
+        using var client = new RestClient(opt);
 
         var req = new RestRequest(path, Method.Get);
 
@@ -405,7 +404,7 @@ public class SaferPayClient : ISaferPayClient
         var opt = new RestClientOptions(uri);
 
         opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        var client = new RestClient(opt);
+        using var client = new RestClient(opt);
 
         var req = new RestRequest();
         req.Method = Method.Post;
@@ -480,7 +479,7 @@ public class SaferPayClient : ISaferPayClient
         var opt = new RestClientOptions(uri);
 
         opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        var client = new RestClient(opt);
+        using var client = new RestClient(opt);
 
         var req = new RestRequest();
         req.Method = Method.Post;
@@ -554,7 +553,7 @@ public class SaferPayClient : ISaferPayClient
         var opt = new RestClientOptions(uri);
 
         opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        var client = new RestClient(opt);
+        using var client = new RestClient(opt);
 
         // Client'ın sınıf düzeyinde tek bir instance olduğunu varsayıyoruz. 
         // Eğer metot içinde oluşturmak zorundaysanız bile RestRequest'i path ile başlatın.
