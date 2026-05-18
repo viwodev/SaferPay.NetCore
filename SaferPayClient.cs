@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
 using SaferPay.Config;
@@ -65,6 +65,23 @@ public class SaferPayClient : ISaferPayClient
         RetryIndicator = 0
     };
 
+    private RestClient BuildClient(Uri uri)
+    {
+        var opt = new RestClientOptions(uri)
+        {
+            Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password)
+        };
+        return new RestClient(opt);
+    }
+
+    private static void AddManagementHeaders(RestRequest req)
+    {
+        req.AddHeader("Saferpay-ApiVersion", SaferPayApiConstants.Version);
+        req.AddHeader("Saferpay-RequestId", Guid.NewGuid().ToString());
+        req.AddHeader("Content-Type", "application/json; charset=utf-8");
+        req.AddHeader("Accept", "application/json");
+    }
+
     /// <summary>
     /// Send Async Method
     /// </summary>
@@ -76,19 +93,14 @@ public class SaferPayClient : ISaferPayClient
     /// <exception cref="ArgumentNullException"></exception>
     public virtual async Task<TResponse> SendAsync<TResponse, TRequest>(string path, TRequest request) where TRequest : RequestBase where TResponse : ResponseBase
     {
-
         try
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
             request.RequestHeader = CreateRequestHeader();
             var uri = new Uri(_settings.BaseUri, path);
 
-            var opt = new RestClientOptions(uri);
-            opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-
-            using var client = new RestClient(opt);
-            var req = new RestRequest();
-            req.Method = Method.Post;
+            using var client = BuildClient(uri);
+            var req = new RestRequest { Method = Method.Post };
 
             var json = request.Json();
             req.AddParameter("application/json", json, ParameterType.RequestBody);
@@ -100,55 +112,14 @@ public class SaferPayClient : ISaferPayClient
                 response!.ResponseStatus = Enums.ResponseStatus.SUCCESS;
                 return response;
             }
-            else
-            {
-                var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
 
-                if (!_settings.ThrowExceptionOnFail)
-                {
-                    var response = Activator.CreateInstance<TResponse>();
-                    response.Error = errorResponse;
-                    response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                    return response;
-                }
-
-                throw new SaferPayException(res.StatusCode, errorResponse);
-            }
-        }
-
-        catch (SaferPayException spex)
-        {
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = new ErrorResponse();
-                response.Error.ErrorMessage = spex.Message.ToString();
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-
-            if (_settings.ThrowExceptionOnFail)
-            {
-                throw;
-            }
+            return HandleSendErrorResponse<TResponse>(res);
         }
         catch (Exception ex)
         {
-
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = new ErrorResponse();
-                response.Error.ErrorMessage = ex.Message.ToString();
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-
-            throw;
-
+            if (_settings.ThrowExceptionOnFail) throw;
+            return ProcessSendFailure<TResponse>(default, new ErrorResponse { ErrorMessage = ex.Message });
         }
-
-        return null;
     }
 
     public void Dispose()
@@ -172,12 +143,8 @@ public class SaferPayClient : ISaferPayClient
         request.RequestHeader = CreateRequestHeader();
         var uri = new Uri(_settings.BaseUri, path);
 
-        var opt = new RestClientOptions(uri);
-        opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-
-        using var client = new RestClient(opt);
-        var req = new RestRequest();
-        req.Method = Method.Post;
+        using var client = BuildClient(uri);
+        var req = new RestRequest { Method = Method.Post };
 
         var json = request.Json();
         req.AddParameter("application/json", json, ParameterType.RequestBody);
@@ -189,48 +156,25 @@ public class SaferPayClient : ISaferPayClient
             response!.ResponseStatus = Enums.ResponseStatus.SUCCESS;
             return response;
         }
-        else
-        {
-            var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
 
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = errorResponse;
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-
-            throw new SaferPayException(res.StatusCode, errorResponse);
-        }
+        return HandleSendErrorResponse<TResponse>(res);
     }
 
     public TResponse Get<TResponse>(string path) where TResponse : Models.Management.RestResponseBase
     {
-        var response = GetAsync<TResponse>(path).GetAwaiter().GetResult();
-        return response;
+        return GetAsync<TResponse>(path).GetAwaiter().GetResult();
     }
 
     public async Task<TResponse> GetAsync<TResponse>(string path) where TResponse : Models.Management.RestResponseBase
     {
         var uri = new Uri(_settings.BaseUri, path);
-        var opt = new RestClientOptions(uri);
+        using var client = BuildClient(uri);
 
-        opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        using var client = new RestClient(opt);
-
-        var req = new RestRequest();
-        req.Method = Method.Get;
-
-        req.AddHeader("Saferpay-ApiVersion", SaferPayApiConstants.Version);
-        req.AddHeader("Saferpay-RequestId", Guid.NewGuid().ToString());
-
-        req.AddHeader("Content-Type", "application/json; charset=utf-8");
-        req.AddHeader("Accept", "application/json");
+        var req = new RestRequest { Method = Method.Get };
+        AddManagementHeaders(req);
 
         var res = await client.ExecuteAsync(req);
 
-        // 200 OK
         if (res.IsSuccessful && res.StatusCode == System.Net.HttpStatusCode.OK)
         {
             var response = JsonConvert.DeserializeObject<TResponse>(res.Content ?? "{}", _jsonSerializerSettings);
@@ -241,111 +185,59 @@ public class SaferPayClient : ISaferPayClient
             }
         }
 
-        // 404 Not Found
-        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            var notFoundError = new ErrorResponse { ErrorMessage = "Requested resource not found (404)." };
-
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = notFoundError;
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-            throw new SaferPayException(res.StatusCode, notFoundError);
-        }
-
-        // Other Errors (400, 401, 500 vb.)
-        ErrorResponse errorResponse = null;
-        if (!string.IsNullOrEmpty(res.Content))
-        {
-            errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
-        }
-
-        errorResponse ??= new ErrorResponse { ErrorMessage = res.ErrorMessage ?? "Unknown API Error" };
-
-        if (!_settings.ThrowExceptionOnFail)
-        {
-            var response = Activator.CreateInstance<TResponse>();
-            response.Error = errorResponse;
-            response.ResponseStatus = Enums.ResponseStatus.ERROR;
-            return response;
-        }
-
-        throw new SaferPayException(res.StatusCode, errorResponse);
-
+        return HandleErrorResponse<TResponse>(res);
     }
 
     public TResponse Get<TResponse, TRequest>(string path, TRequest request)
         where TResponse : Models.Management.RestResponseBase
         where TRequest : RestRequestBase
     {
-        var response = GetAsync<TResponse, TRequest>(path, request).GetAwaiter().GetResult();
-        return response;
+        return GetAsync<TResponse, TRequest>(path, request).GetAwaiter().GetResult();
     }
 
     public async Task<TResponse> GetAsync<TResponse, TRequest>(string path, TRequest request)
         where TResponse : Models.Management.RestResponseBase
         where TRequest : RestRequestBase
     {
-        var opt = new RestClientOptions(_settings.BaseUri);
-
-        opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        using var client = new RestClient(opt);
+        using var client = BuildClient(_settings.BaseUri);
 
         var req = new RestRequest(path, Method.Get);
 
-        // 1. Query Parametrelerini Otomatik Ekleme
+        // Query parameters
         if (request != null)
         {
-            // 1. Nesnenin tüm property'lerini alıyoruz
             var properties = typeof(TRequest).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var prop in properties)
             {
-                // 2. [JsonIgnore] varsa bu property'yi tamamen atla
                 if (Attribute.IsDefined(prop, typeof(JsonIgnoreAttribute)))
                     continue;
 
-                // 3. [JsonProperty] niteliğini al
                 var jsonProperty = prop.GetCustomAttribute<JsonPropertyAttribute>();
-
-                // Eğer JsonProperty atanmamışsa standart ismini kullan, atanmışsa oradaki ismi kullan
                 string paramName = jsonProperty != null ? jsonProperty.PropertyName : prop.Name;
 
                 var value = prop.GetValue(request);
+                if (value == null) continue;
 
-                // 4. Sadece null olmayan değerleri ekle
-                if (value != null)
+                if (prop.PropertyType.IsEnum || (Nullable.GetUnderlyingType(prop.PropertyType)?.IsEnum == true))
                 {
-                    // Değer bir Enum ise, string karşılığını (USD, TRY vb.) gönder
-                    if (prop.PropertyType.IsEnum || (Nullable.GetUnderlyingType(prop.PropertyType)?.IsEnum == true))
-                    {
-                        req.AddQueryParameter(paramName, value.ToString());
-                    }
-                    // DateTime kontrolü (Eğer unutup JsonIgnore koymazsanız patlamasın diye)
-                    else if (value is DateTime dt)
-                    {
-                        req.AddQueryParameter(paramName, dt.ToString("yyyy-MM-ddTHH:mm"));
-                    }
-                    else
-                    {
-                        req.AddQueryParameter(paramName, value.ToString());
-                    }
+                    req.AddQueryParameter(paramName, value.ToString());
+                }
+                else if (value is DateTime dt)
+                {
+                    req.AddQueryParameter(paramName, dt.ToString("yyyy-MM-ddTHH:mm"));
+                }
+                else
+                {
+                    req.AddQueryParameter(paramName, value.ToString());
                 }
             }
         }
 
-        // 2. Zorunlu Saferpay Header'ları
-        req.AddHeader("Saferpay-ApiVersion", SaferPayApiConstants.Version);
-        req.AddHeader("Saferpay-RequestId", Guid.NewGuid().ToString());
-        req.AddHeader("Accept", "application/json");
-        req.AddHeader("Content-Type", "application/json; charset=utf-8");
+        AddManagementHeaders(req);
 
         var res = await client.ExecuteAsync(req);
 
-        // 3. Başarı Kontrolü (200 OK)
         if (res.IsSuccessful && res.StatusCode == System.Net.HttpStatusCode.OK)
         {
             var response = JsonConvert.DeserializeObject<TResponse>(res.Content ?? "{}", _jsonSerializerSettings);
@@ -356,67 +248,24 @@ public class SaferPayClient : ISaferPayClient
             }
         }
 
-        // 404 Not Found
-        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            var notFoundError = new ErrorResponse { ErrorMessage = "Requested resource not found (404)." };
-
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = notFoundError;
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-            throw new SaferPayException(res.StatusCode, notFoundError);
-        }
-
-        // Other Errors (400, 401, 500 vb.)
-        ErrorResponse errorResponse = null;
-        if (!string.IsNullOrEmpty(res.Content))
-        {
-            errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
-        }
-
-        errorResponse ??= new ErrorResponse { ErrorMessage = res.ErrorMessage ?? "Unknown API Error" };
-
-        if (!_settings.ThrowExceptionOnFail)
-        {
-            var response = Activator.CreateInstance<TResponse>();
-            response.Error = errorResponse;
-            response.ResponseStatus = Enums.ResponseStatus.ERROR;
-            return response;
-        }
-
-        throw new SaferPayException(res.StatusCode, errorResponse);
+        return HandleErrorResponse<TResponse>(res);
     }
 
     public TResponse Post<TResponse>(string path) where TResponse : Models.Management.RestResponseBase
     {
-        var response = PostAsync<TResponse>(path).GetAwaiter().GetResult();
-        return response;
+        return PostAsync<TResponse>(path).GetAwaiter().GetResult();
     }
 
     public async Task<TResponse> PostAsync<TResponse>(string path) where TResponse : Models.Management.RestResponseBase
     {
         var uri = new Uri(_settings.BaseUri, path);
-        var opt = new RestClientOptions(uri);
+        using var client = BuildClient(uri);
 
-        opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        using var client = new RestClient(opt);
-
-        var req = new RestRequest();
-        req.Method = Method.Post;
-
-        req.AddHeader("Saferpay-ApiVersion", SaferPayApiConstants.Version);
-        req.AddHeader("Saferpay-RequestId", Guid.NewGuid().ToString());
-
-        req.AddHeader("Content-Type", "application/json; charset=utf-8");
-        req.AddHeader("Accept", "application/json");
+        var req = new RestRequest { Method = Method.Post };
+        AddManagementHeaders(req);
 
         var res = await client.ExecuteAsync(req);
 
-        // 200 OK
         if (res.IsSuccessful && res.StatusCode == System.Net.HttpStatusCode.OK)
         {
             var response = JsonConvert.DeserializeObject<TResponse>(res.Content ?? "{}", _jsonSerializerSettings);
@@ -427,47 +276,14 @@ public class SaferPayClient : ISaferPayClient
             }
         }
 
-        // 404 Not Found
-        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            var notFoundError = new ErrorResponse { ErrorMessage = "Requested resource not found (404)." };
-
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = notFoundError;
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-            throw new SaferPayException(res.StatusCode, notFoundError);
-        }
-
-        // Other Errors (400, 401, 500 vb.)
-        ErrorResponse errorResponse = null;
-        if (!string.IsNullOrEmpty(res.Content))
-        {
-            errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
-        }
-
-        errorResponse ??= new ErrorResponse { ErrorMessage = res.ErrorMessage ?? "Unknown API Error" };
-
-        if (!_settings.ThrowExceptionOnFail)
-        {
-            var response = Activator.CreateInstance<TResponse>();
-            response.Error = errorResponse;
-            response.ResponseStatus = Enums.ResponseStatus.ERROR;
-            return response;
-        }
-
-        throw new SaferPayException(res.StatusCode, errorResponse);
+        return HandleErrorResponse<TResponse>(res);
     }
 
     public TResponse Post<TResponse, TRequest>(string path, TRequest request)
         where TResponse : Models.Management.RestResponseBase
         where TRequest : RestRequestBase
     {
-        var response = PostAsync<TResponse, TRequest>(path, request).GetAwaiter().GetResult();
-        return response;
+        return PostAsync<TResponse, TRequest>(path, request).GetAwaiter().GetResult();
     }
 
     public async Task<TResponse> PostAsync<TResponse, TRequest>(string path, TRequest request)
@@ -475,26 +291,17 @@ public class SaferPayClient : ISaferPayClient
         where TRequest : RestRequestBase
     {
         var uri = new Uri(_settings.BaseUri, path);
-        var opt = new RestClientOptions(uri);
+        using var client = BuildClient(uri);
 
-        opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        using var client = new RestClient(opt);
-
-        var req = new RestRequest();
-        req.Method = Method.Post;
+        var req = new RestRequest { Method = Method.Post };
 
         var json = request.Json();
         req.AddParameter("application/json", json, ParameterType.RequestBody);
 
-        req.AddHeader("Saferpay-ApiVersion", SaferPayApiConstants.Version);
-        req.AddHeader("Saferpay-RequestId", Guid.NewGuid().ToString());
-
-        req.AddHeader("Content-Type", "application/json; charset=utf-8");
-        req.AddHeader("Accept", "application/json");
+        AddManagementHeaders(req);
 
         var res = await client.ExecuteAsync(req);
 
-        // 200 OK
         if (res.IsSuccessful && res.StatusCode == System.Net.HttpStatusCode.OK)
         {
             var response = JsonConvert.DeserializeObject<TResponse>(res.Content ?? "{}", _jsonSerializerSettings);
@@ -505,68 +312,27 @@ public class SaferPayClient : ISaferPayClient
             }
         }
 
-        // 404 Not Found
-        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            var notFoundError = new ErrorResponse { ErrorMessage = "Requested resource not found (404)." };
-
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = notFoundError;
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-            throw new SaferPayException(res.StatusCode, notFoundError);
-        }
-
-        // Other Errors (400, 401, 500 vb.)
-        ErrorResponse errorResponse = null;
-        if (!string.IsNullOrEmpty(res.Content))
-        {
-            errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
-        }
-
-        errorResponse ??= new ErrorResponse { ErrorMessage = res.ErrorMessage ?? "Unknown API Error" };
-
-        if (!_settings.ThrowExceptionOnFail)
-        {
-            var response = Activator.CreateInstance<TResponse>();
-            response.Error = errorResponse;
-            response.ResponseStatus = Enums.ResponseStatus.ERROR;
-            return response;
-        }
-
-        throw new SaferPayException(res.StatusCode, errorResponse);
+        return HandleErrorResponse<TResponse>(res);
     }
 
     public TResponse Delete<TResponse>(string path) where TResponse : Models.Management.RestResponseBase
     {
-        var response = DeleteAsync<TResponse>(path).GetAwaiter().GetResult();
-        return response;
+        return DeleteAsync<TResponse>(path).GetAwaiter().GetResult();
     }
 
     public async Task<TResponse> DeleteAsync<TResponse>(string path) where TResponse : Models.Management.RestResponseBase
     {
         var uri = new Uri(_settings.BaseUri, path);
-        var opt = new RestClientOptions(uri);
-
-        opt.Authenticator = new HttpBasicAuthenticator(_settings.Username, _settings.Password);
-        using var client = new RestClient(opt);
+        using var client = BuildClient(uri);
 
         var req = new RestRequest(path, Method.Delete);
-
-        req.AddHeader("Saferpay-ApiVersion", SaferPayApiConstants.Version);
-        req.AddHeader("Saferpay-RequestId", Guid.NewGuid().ToString());
-        req.AddHeader("Content-Type", "application/json; charset=utf-8");
-        req.AddHeader("Accept", "application/json");
+        AddManagementHeaders(req);
 
         var res = await client.ExecuteAsync(req);
 
-        // Başarı Durumu (200 OK veya 204 No Content)
+        // Success (200 OK or 204 No Content)
         if (res.IsSuccessful)
         {
-            // 204 No Content durumunda Content null/empty olabilir.
             var content = string.IsNullOrWhiteSpace(res.Content) ? "{}" : res.Content;
             var response = JsonConvert.DeserializeObject<TResponse>(content, _jsonSerializerSettings);
 
@@ -575,72 +341,39 @@ public class SaferPayClient : ISaferPayClient
             return response;
         }
 
-        // 404 Not Found
-        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            var notFoundError = new ErrorResponse { ErrorMessage = "Requested resource not found (404)." };
-
-            if (!_settings.ThrowExceptionOnFail)
-            {
-                var response = Activator.CreateInstance<TResponse>();
-                response.Error = notFoundError;
-                response.ResponseStatus = Enums.ResponseStatus.ERROR;
-                return response;
-            }
-            throw new SaferPayException(res.StatusCode, notFoundError);
-        }
-
-        // Diğer Hata Durumları
-        ErrorResponse errorResponse = null;
-        if (!string.IsNullOrEmpty(res.Content))
-        {
-            try
-            {
-                errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
-            }
-            catch { /* JSON parse hatası ihtimaline karşı */ }
-        }
-
-        errorResponse ??= new ErrorResponse { ErrorMessage = res.ErrorMessage ?? $"API Error: {res.StatusCode}" };
-
-        if (!_settings.ThrowExceptionOnFail)
-        {
-            var response = Activator.CreateInstance<TResponse>();
-            response.Error = errorResponse;
-            response.ResponseStatus = Enums.ResponseStatus.ERROR;
-            return response;
-        }
-
-        throw new SaferPayException(res.StatusCode, errorResponse);
+        return HandleErrorResponse<TResponse>(res);
     }
 
 
+    /// <summary>
+    /// Build an error response (or throw) for a failed REST (management) call.
+    /// </summary>
     private TResponse HandleErrorResponse<TResponse>(RestResponse res) where TResponse : Models.Management.RestResponseBase
     {
-        // 1. 404 Özel Kontrolü (Genellikle içerik boş döner, bu yüzden manuel mesaj ekliyoruz)
+        if (res == null)
+        {
+            return ProcessFailure<TResponse>(default, new ErrorResponse { ErrorMessage = "No response from server." });
+        }
+
         if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
         {
             var notFoundError = new ErrorResponse { ErrorMessage = "Requested resource not found (404)." };
             return ProcessFailure<TResponse>(res.StatusCode, notFoundError);
         }
 
-        // 2. API'den gelen hata içeriğini (JSON) deserialize etmeye çalışıyoruz
         ErrorResponse errorResponse = null;
         if (!string.IsNullOrEmpty(res.Content))
         {
             try
             {
-                // Saferpay hata formatına göre (Behavior, ErrorName, ErrorMessage vb.) çözümlüyoruz
                 errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
             }
             catch (JsonException)
             {
-                // Yanıt JSON formatında değilse veya beklenmedik bir yapıdaysa
                 errorResponse = new ErrorResponse { ErrorMessage = $"API Parse Error: {res.Content}" };
             }
         }
 
-        // 3. Eğer içerik boşsa veya deserialization başarısız olduysa RestSharp hata mesajlarını kullanıyoruz
         errorResponse ??= new ErrorResponse
         {
             ErrorMessage = !string.IsNullOrEmpty(res.ErrorMessage) ? res.ErrorMessage : $"Server Exception: {res.StatusCode}"
@@ -650,17 +383,62 @@ public class SaferPayClient : ISaferPayClient
     }
 
     /// <summary>
-    /// Ayarlara göre hata fırlatan veya Response nesnesi dönen yardımcı alt metot
+    /// Throws when ThrowExceptionOnFail is set, otherwise returns an ERROR response instance.
     /// </summary>
     private TResponse ProcessFailure<TResponse>(System.Net.HttpStatusCode statusCode, ErrorResponse error) where TResponse : Models.Management.RestResponseBase
     {
         if (_settings.ThrowExceptionOnFail)
         {
-            // Gelişmiş bir exception fırlatıyoruz
             throw new SaferPayException(statusCode, error);
         }
 
-        // Exception istenmiyorsa ERROR statusü ile nesne dönüyoruz
+        var response = Activator.CreateInstance<TResponse>();
+        response.Error = error;
+        response.ResponseStatus = Enums.ResponseStatus.ERROR;
+        return response;
+    }
+
+    /// <summary>
+    /// Build an error response (or throw) for a failed Send call (Core JSON API).
+    /// </summary>
+    private TResponse HandleSendErrorResponse<TResponse>(RestResponse res) where TResponse : ResponseBase
+    {
+        if (res == null)
+        {
+            return ProcessSendFailure<TResponse>(default, new ErrorResponse { ErrorMessage = "No response from server." });
+        }
+
+        ErrorResponse errorResponse = null;
+        if (!string.IsNullOrEmpty(res.Content))
+        {
+            try
+            {
+                errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(res.Content, _jsonSerializerSettings);
+            }
+            catch (JsonException)
+            {
+                errorResponse = new ErrorResponse { ErrorMessage = $"API Parse Error: {res.Content}" };
+            }
+        }
+
+        errorResponse ??= new ErrorResponse
+        {
+            ErrorMessage = !string.IsNullOrEmpty(res.ErrorMessage) ? res.ErrorMessage : $"Server Exception: {res.StatusCode}"
+        };
+
+        return ProcessSendFailure<TResponse>(res.StatusCode, errorResponse);
+    }
+
+    /// <summary>
+    /// Throws when ThrowExceptionOnFail is set, otherwise returns an ERROR response instance.
+    /// </summary>
+    private TResponse ProcessSendFailure<TResponse>(System.Net.HttpStatusCode statusCode, ErrorResponse error) where TResponse : ResponseBase
+    {
+        if (_settings.ThrowExceptionOnFail)
+        {
+            throw new SaferPayException(statusCode, error);
+        }
+
         var response = Activator.CreateInstance<TResponse>();
         response.Error = error;
         response.ResponseStatus = Enums.ResponseStatus.ERROR;

@@ -1,4 +1,4 @@
-﻿using SaferPay.Config;
+using SaferPay.Config;
 using SaferPay.Interfaces;
 using SaferPay.Models.Core;
 using SaferPay.Models.SecureData;
@@ -10,78 +10,43 @@ public class SecureCardData : ISecureCardData
     private readonly ISaferPayClient _client;
 
     public SecureCardData(SaferPaySettings settings) => _client = new SaferPayClient(settings);
-    public SecureCardData(ISaferPayClient client) => _client = client;
-    public SecureCardData(string customerId, string terminalId, string userName, string passWord, bool sandBox = false) => _client = new SaferPayClient(new SaferPaySettings(customerId, terminalId, userName, passWord, sandBox));
+    public SecureCardData(ISaferPayClient client) => _client = client ?? throw new ArgumentNullException(nameof(client));
+    public SecureCardData(string customerId, string terminalId, string userName, string passWord, bool sandBox = false)
+        => _client = new SaferPayClient(new SaferPaySettings(customerId, terminalId, userName, passWord, sandBox));
 
-    public AliasDeleteResponse AliasDelete(AliasDeleteRequest request)
-    {
-        if (_client != null) return _client.Send<AliasDeleteResponse, AliasDeleteRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasDelete, request);
-        return null;
-    }
+    public AliasDeleteResponse AliasDelete(AliasDeleteRequest request) =>
+        _client.Send<AliasDeleteResponse, AliasDeleteRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasDelete, request);
 
-    public Task<AliasDeleteResponse> AliasDeleteAsync(AliasDeleteRequest request)
-    {
-        if (_client != null) return _client.SendAsync<AliasDeleteResponse, AliasDeleteRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasDelete, request);
-        return null;
-    }
+    public Task<AliasDeleteResponse> AliasDeleteAsync(AliasDeleteRequest request) =>
+        _client.SendAsync<AliasDeleteResponse, AliasDeleteRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasDelete, request);
 
-    public AliasInquireResponse AliasInquire(AliasInquireRequest request)
-    {
-        if (_client != null) return _client.Send<AliasInquireResponse, AliasInquireRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInquire, request);
-        return null;
-    }
+    public AliasInquireResponse AliasInquire(AliasInquireRequest request) =>
+        _client.Send<AliasInquireResponse, AliasInquireRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInquire, request);
 
-    public Task<AliasInquireResponse> AliasInquireAsync(AliasInquireRequest request)
-    {
-        if (_client != null) return _client.SendAsync<AliasInquireResponse, AliasInquireRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInquire, request);
-        return null;
-    }
+    public Task<AliasInquireResponse> AliasInquireAsync(AliasInquireRequest request) =>
+        _client.SendAsync<AliasInquireResponse, AliasInquireRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInquire, request);
 
-    public AliasInsertResponse AliasInsert(AliasInsertRequest request)
-    {
-        if (_client != null) return _client.Send<AliasInsertResponse, AliasInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsert, request);
-        return null;
-    }
+    public AliasInsertResponse AliasInsert(AliasInsertRequest request) =>
+        _client.Send<AliasInsertResponse, AliasInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsert, request);
 
-    public Task<AliasInsertResponse> AliasInsertAsync(AliasInsertRequest request)
-    {
-        if (_client != null) return _client.SendAsync<AliasInsertResponse, AliasInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsert, request);
-        return null;
-    }
+    public Task<AliasInsertResponse> AliasInsertAsync(AliasInsertRequest request) =>
+        _client.SendAsync<AliasInsertResponse, AliasInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsert, request);
 
-    public AliasUpdateResponse AliasUpdate(AliasUpdateRequest request)
-    {
-        if (_client != null) return _client.Send<AliasUpdateResponse, AliasUpdateRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasUpdate, request);
-        return null;
-    }
+    public AliasUpdateResponse AliasUpdate(AliasUpdateRequest request) =>
+        _client.Send<AliasUpdateResponse, AliasUpdateRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasUpdate, request);
 
-    public Task<AliasUpdateResponse> AliasUpdateAsync(AliasUpdateRequest request)
-    {
-        if (_client != null) return _client.SendAsync<AliasUpdateResponse, AliasUpdateRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasUpdate, request);
-        return null;
-    }
+    public Task<AliasUpdateResponse> AliasUpdateAsync(AliasUpdateRequest request) =>
+        _client.SendAsync<AliasUpdateResponse, AliasUpdateRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasUpdate, request);
 
-    public AssertInsertResponse AssertInsert(AssertInsertRequest request)
-    {
-        if (_client != null) return _client.Send<AssertInsertResponse, AssertInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasAssertInsert, request);
-        return null;
-    }
+    public AssertInsertResponse AssertInsert(AssertInsertRequest request) =>
+        _client.Send<AssertInsertResponse, AssertInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasAssertInsert, request);
 
-    public Task<AssertInsertResponse> AssertInsertAsync(AssertInsertRequest request)
-    {
-        if (_client != null) return _client.SendAsync<AssertInsertResponse, AssertInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasAssertInsert, request);
-        return null;
-    }
+    public Task<AssertInsertResponse> AssertInsertAsync(AssertInsertRequest request) =>
+        _client.SendAsync<AssertInsertResponse, AssertInsertRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasAssertInsert, request);
 
-    public InsertDirectResponse InsertDirect(InsertDirectRequest request)
-    {
-        if (_client != null) return _client.Send<InsertDirectResponse, InsertDirectRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsertDirect, request);
-        return null;
-    }
+    public InsertDirectResponse InsertDirect(InsertDirectRequest request) =>
+        _client.Send<InsertDirectResponse, InsertDirectRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsertDirect, request);
 
-    public Task<InsertDirectResponse> InsertDirectAsync(InsertDirectRequest request)
-    {
-        if (_client != null) return _client.SendAsync<InsertDirectResponse, InsertDirectRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsertDirect, request);
-        return null;
-    }
+    public Task<InsertDirectResponse> InsertDirectAsync(InsertDirectRequest request) =>
+        _client.SendAsync<InsertDirectResponse, InsertDirectRequest>(SaferPayEndpoints.AliasEndpoint + SaferPayMethods.AliasInsertDirect, request);
 }
