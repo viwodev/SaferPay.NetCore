@@ -1,21 +1,21 @@
 name: Publish to NuGet
 
 on:
-  workflow_dispatch: # Manuel tetikleme için
   push:
     branches:
-      - 'main'       # Main'e kod atıldığında test etsin
+      - main
   pull_request:
     branches:
-      - '*'          # PR geldiğinde test etsin
+      - '*'
   release:
     types:
-      - published    # SADECE yeni bir Release yayınlandığında NuGet'e göndersin
+      - published
+  workflow_dispatch:
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
-  NuGetDirectory: ${{ github.workspace}}/nuget
+  NuGetDirectory: ${{ github.workspace }}/nuget
 
 defaults:
   run:
@@ -25,83 +25,77 @@ jobs:
   create_nuget:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 # Versiyonlama için tüm geçmişi çek
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Build project
-      run: dotnet build SaferPay.csproj --configuration Release
+      - name: Build project
+        run: dotnet build SaferPay.csproj --configuration Release
 
-    # Paketi oluşturur
-    - name: Pack Nuget
-      run: dotnet pack SaferPay.csproj --configuration Release --output ${{ env.NuGetDirectory }}
+      - name: Pack NuGet
+        run: dotnet pack SaferPay.csproj --configuration Release --output ${{ env.NuGetDirectory }}
 
-    # Paketi diğer aşamalar için saklar
-    - uses: actions/upload-artifact@v4
-      with:
-        name: nuget
-        if-no-files-found: error
-        retention-days: 7
-        path: ${{ env.NuGetDirectory }}/*.nupkg
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nuget
+          if-no-files-found: error
+          retention-days: 7
+          path: ${{ env.NuGetDirectory }}/*.nupkg
 
   validate_nuget:
     runs-on: ubuntu-latest
-    needs: [ create_nuget ]
+    needs: [create_nuget]
     steps:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
       - uses: actions/download-artifact@v4
         with:
           name: nuget
           path: ${{ env.NuGetDirectory }}
 
-      - name: Install nuget validator
+      - name: Install NuGet validator
         run: dotnet tool update Meziantou.Framework.NuGetPackageValidation.Tool --global
 
-      # Paketin kurallara uygunluğunu denetler
       - name: Validate package
         run: meziantou.validate-nuget-package (Get-ChildItem "${{ env.NuGetDirectory }}/*.nupkg")
 
   run_test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-    - name: Run tests
-      run: dotnet test --configuration Release
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Run tests
+        run: dotnet test --configuration Release
 
   deploy:
-      if: github.event_name == 'release'
-      runs-on: ubuntu-latest
-      needs: [ validate_nuget, run_test ]
-      steps:
-        - uses: actions/download-artifact@v4
-          with:
-            name: nuget
-            path: ${{ env.NuGetDirectory }}
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    needs: [validate_nuget, run_test]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: nuget
+          path: ${{ env.NuGetDirectory }}
 
-        - name: Setup .NET
-          uses: actions/setup-dotnet@v4
-          with:
-            # GitHub Packages kaynağını tanıtıyoruz (NuGet.org zaten varsayılan olarak vardır)
-            source-url: https://nuget.pkg.github.com/viwodev/index.json
-          env:
-            NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-        - name: Publish to BOTH NuGet.org and GitHub Packages
-          run: |
-            foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
-                
-                # 1. ADIM: NuGet.org'a Yükle (Senin oluşturduğun NUGET_APIKEY'i kullanır)
-                Write-Host "Publishing to NuGet.org..."
-                dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-
-                # 2. ADIM: GitHub Packages'a Yükle (Otomatik GITHUB_TOKEN kullanır)
-                Write-Host "Publishing to GitHub Packages..."
-                dotnet nuget push $file --api-key "${{ secrets.GITHUB_TOKEN }}" --source "https://nuget.pkg.github.com/viwodev/index.json" --skip-duplicate
-            }
+      - name: Publish to NuGet.org
+        run: |
+          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
+              Write-Host "Publishing $file to NuGet.org..."
+              dotnet nuget push $file --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          }
