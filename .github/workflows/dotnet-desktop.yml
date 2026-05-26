@@ -105,11 +105,10 @@ jobs:
           retention-days: 7
 
   run_integration_tests:
-    # Sandbox integration tests are opt-in: they only run when the repo has the
-    # SAFERPAY_* secrets configured. They will auto-skip otherwise, but we gate
-    # the whole job on a manual dispatch / push to main to avoid hitting the
-    # sandbox on every PR.
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    # Hits the real test.saferpay.com sandbox using the public Viwo test account
+    # that's already shipped in SaferPay.Test/TestConfig.cs. Repo secrets, if
+    # configured, override the defaults via env vars. Runs on every PR — the
+    # sandbox is rate-friendly and the suite takes ~3s.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

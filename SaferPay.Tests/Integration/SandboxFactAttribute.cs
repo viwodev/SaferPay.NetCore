@@ -1,9 +1,9 @@
 namespace SaferPay.Tests.Integration;
 
 /// <summary>
-/// xUnit <see cref="FactAttribute"/> that auto-skips when sandbox credentials
-/// are not configured. Keeps integration tests opt-in without polluting the
-/// default test run.
+/// xUnit <see cref="FactAttribute"/> for tests that hit the real SaferPay sandbox.
+/// Auto-skips when <see cref="SandboxEnvironment.SkipVar"/> is set, which is the
+/// escape hatch for fully-offline runs.
 /// </summary>
 public sealed class SandboxFactAttribute : FactAttribute
 {
@@ -11,9 +11,7 @@ public sealed class SandboxFactAttribute : FactAttribute
     {
         if (!SandboxEnvironment.IsAvailable)
         {
-            Skip = $"Sandbox credentials not configured. Set {SandboxEnvironment.CustomerIdVar}, "
-                 + $"{SandboxEnvironment.TerminalIdVar}, {SandboxEnvironment.UsernameVar}, "
-                 + $"{SandboxEnvironment.PasswordVar} to enable.";
+            Skip = $"{SandboxEnvironment.SkipVar}=1 set, skipping live-sandbox test.";
         }
     }
 }
