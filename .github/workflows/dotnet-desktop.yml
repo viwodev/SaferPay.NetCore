@@ -68,16 +68,68 @@ jobs:
 
   run_test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: ['net8.0', 'net10.0']
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            8.0.x
+            10.0.x
 
-      - name: Run tests
-        run: dotnet test --configuration Release
+      - name: Restore
+        run: dotnet restore SaferPay.Tests/SaferPay.Tests.csproj
+
+      - name: Run unit tests (${{ matrix.framework }})
+        run: >-
+          dotnet test SaferPay.Tests/SaferPay.Tests.csproj
+          --configuration Release
+          --framework ${{ matrix.framework }}
+          --filter "FullyQualifiedName!~Integration"
+          --logger "trx;LogFileName=unit-${{ matrix.framework }}.trx"
+          --collect:"XPlat Code Coverage"
+          --results-directory ${{ github.workspace }}/TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.framework }}
+          path: ${{ github.workspace }}/TestResults
+          if-no-files-found: warn
+          retention-days: 7
+
+  run_integration_tests:
+    # Hits the real test.saferpay.com sandbox using the public Viwo test account
+    # that's already shipped in SaferPay.Test/TestConfig.cs. Repo secrets, if
+    # configured, override the defaults via env vars. Runs on every PR — the
+    # sandbox is rate-friendly and the suite takes ~3s.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Run sandbox integration tests
+        env:
+          SAFERPAY_CUSTOMER_ID: ${{ secrets.SAFERPAY_CUSTOMER_ID }}
+          SAFERPAY_TERMINAL_ID: ${{ secrets.SAFERPAY_TERMINAL_ID }}
+          SAFERPAY_USERNAME: ${{ secrets.SAFERPAY_USERNAME }}
+          SAFERPAY_PASSWORD: ${{ secrets.SAFERPAY_PASSWORD }}
+        run: >-
+          dotnet test SaferPay.Tests/SaferPay.Tests.csproj
+          --configuration Release
+          --framework net10.0
+          --filter "FullyQualifiedName~Integration"
+          --logger "console;verbosity=normal"
 
   deploy:
     if: github.event_name == 'release'

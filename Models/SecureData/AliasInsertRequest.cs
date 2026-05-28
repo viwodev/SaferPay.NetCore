@@ -32,18 +32,23 @@ public class AliasInsertRequest : RequestBase
     /// <summary>
     /// Language used for displaying forms.
     /// </summary>
-    public LanguageCodes LanguageCode { get; set; }
+    // Nullable: see Check below.
+    public LanguageCodes? LanguageCode { get; set; }
 
     /// <summary>
     /// Parameters for checking the means of payment before registering.
     /// </summary>
-    public CheckTypes Check { get; set; }
+    // Nullable: RequestBase.Json() only strips nulls, so a non-nullable enum
+    // always serializes with its default (0) — which Saferpay rejects as
+    // "field is invalid" on AliasInsert. Marking nullable lets callers omit it.
+    public CheckTypes? Check { get; set; }
 
     /// <summary>
     /// Used to restrict the means of payment which are available to the payer<br/>
     /// <i>AMEX, BONUS, DINERS, DIRECTDEBIT, JCB, MAESTRO, MASTERCARD, MYONE, VISA</i>
     /// </summary>
-    public AliasPaymentMethods PaymentMethods { get; set; }
+    // Nullable: see Check above.
+    public AliasPaymentMethods? PaymentMethods { get; set; }
 
     /// <summary>
     /// Options for card data entry form (if applicable)

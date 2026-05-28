@@ -32,6 +32,9 @@
 		<Compile Remove="SaferPay.Test\**" />
 		<EmbeddedResource Remove="SaferPay.Test\**" />
 		<None Remove="SaferPay.Test\**" />
+		<Compile Remove="SaferPay.Tests\**" />
+		<EmbeddedResource Remove="SaferPay.Tests\**" />
+		<None Remove="SaferPay.Tests\**" />
 	</ItemGroup>
 
 	<ItemGroup>

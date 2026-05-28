@@ -27,6 +27,8 @@ public class RegisterAlias
     /// <i>Range: inclusive between 1 and 1600<br/>
     /// Example: 1000</i>
     /// </summary>
-    public int Lifetime { get; set; }
+    // Nullable: Saferpay rejects 0 with "must be between 1 and 1600", so the
+    // field must be omittable when the caller wants the documented default.
+    public int? Lifetime { get; set; }
 
 }
