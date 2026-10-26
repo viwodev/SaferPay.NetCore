@@ -74,7 +74,7 @@ public interface ITransaction
 
     /// <summary>
     /// <b>AssertCapture</b><br/><br/>
-    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for paydirekt transactions at the moment.</i>
+    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for PostFinance Instant Payout transactions at the moment.</i>
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -223,7 +223,7 @@ public interface ITransaction
 
     /// <summary>
     /// <b>AssertCapture</b><br/><br/>
-    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for paydirekt transactions at the moment.</i>
+    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for PostFinance Instant Payout transactions at the moment.</i>
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>

@@ -12,7 +12,7 @@ public class TransactionItem
     public TransactionType Type { get; set; }
 
     /// <summary>
-    /// Current status of the transaction. One of 'AUTHORIZED','CANCELED', 'CAPTURED' or 'PENDING' (PENDING is only used for paydirekt and WL Crypto Payments refund at the moment)<br/><br/>
+    /// Current status of the transaction. One of 'AUTHORIZED','CANCELED', 'CAPTURED' or 'PENDING'<br/><br/>
     /// <strong>Mandatory</strong>
     /// </summary>
     public TransactionStatus Status { get; set; }
