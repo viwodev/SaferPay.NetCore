@@ -1,6 +1,6 @@
-# SaferPay.NetCore Test & Examples (Json Api V1.52)
+# SaferPay.NetCore Test & Examples (Json Api V1.54)
 
-The two test projects for [SaferPay.NetCore](../README.md), built against the JSON API **v1.52** and targeting **.NET 8.0 / .NET 10.0**.
+The two test projects for [SaferPay.NetCore](../README.md), built against the JSON API **v1.54** and targeting **.NET 8.0 / .NET 10.0**.
 
 For the full API reference and usage snippets, read the [root README](../README.md). This page only covers how to run the test artifacts.
 

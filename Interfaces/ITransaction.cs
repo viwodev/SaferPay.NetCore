@@ -129,26 +129,6 @@ public interface ITransaction
 
 
     /// <summary>
-    /// <b>RedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public RedirectPaymentResponse RedirectPayment(RedirectPaymentRequest request);
-
-
-    /// <summary>
-    /// <b>AssertRedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public AssertRedirectPaymentResponse AssertRedirectPayment(AssertRedirectPaymentRequest request);
-
-
-    /// <summary>
     /// <b>Inquire</b><br/><br/>
     /// This method can be used to get the details of a transaction that has been authorized successfully.
     /// <br/><br/>
@@ -295,26 +275,6 @@ public interface ITransaction
     /// <param name="request"></param>
     /// <returns></returns>
     public Task<CancelResponse> CancelAsync(CancelRequest request);
-
-
-    /// <summary>
-    /// <b>RedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public Task<RedirectPaymentResponse> RedirectPaymentAsync(RedirectPaymentRequest request);
-
-
-    /// <summary>
-    /// <b>AssertRedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public Task<AssertRedirectPaymentResponse> AssertRedirectPaymentAsync(AssertRedirectPaymentRequest request);
 
 
     /// <summary>

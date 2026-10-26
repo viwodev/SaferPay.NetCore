@@ -111,26 +111,6 @@ public class Transaction : ITransaction
         _client.SendAsync<CancelResponse, CancelRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionCancel, request);
     #endregion
 
-    #region RedirectPayment
-    [Obsolete("This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public RedirectPaymentResponse RedirectPayment(RedirectPaymentRequest request) =>
-        _client.Send<RedirectPaymentResponse, RedirectPaymentRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionRedirectPayment, request);
-
-    [Obsolete("This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public Task<RedirectPaymentResponse> RedirectPaymentAsync(RedirectPaymentRequest request) =>
-        _client.SendAsync<RedirectPaymentResponse, RedirectPaymentRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionRedirectPayment, request);
-    #endregion
-
-    #region AssertRedirectPayment
-    [Obsolete("This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public AssertRedirectPaymentResponse AssertRedirectPayment(AssertRedirectPaymentRequest request) =>
-        _client.Send<AssertRedirectPaymentResponse, AssertRedirectPaymentRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionAssertRedirectPayment, request);
-
-    [Obsolete("This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public Task<AssertRedirectPaymentResponse> AssertRedirectPaymentAsync(AssertRedirectPaymentRequest request) =>
-        _client.SendAsync<AssertRedirectPaymentResponse, AssertRedirectPaymentRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionAssertRedirectPayment, request);
-    #endregion
-
     #region Inquire
     public InquireResponse Inquire(InquireRequest request) =>
         _client.Send<InquireResponse, InquireRequest>(SaferPayEndpoints.TransactionEndpoint + SaferPayMethods.TransactionInquire, request);

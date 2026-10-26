@@ -54,6 +54,12 @@ public class InitializeRequest : RequestBase
     public string ConfigSet { get; set; }
 
     /// <summary>
+    /// Reference to DccInquiry and payer's decision whether he accepts or declines DCC offer
+    /// </summary>
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public Dcc Dcc { get; set; }
+
+    /// <summary>
     /// Notification options
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

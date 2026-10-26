@@ -153,25 +153,4 @@ public class TransactionRoutingTests
         await c.QueryAlternativePaymentAsync(new QueryAlternativePaymentRequest());
         f.Calls.Should().ContainSingle().Which.Path.Should().Be(Base + "QueryAlternativePayment");
     }
-
-    // RedirectPayment / AssertRedirectPayment are [Obsolete]. Still routed,
-    // still worth pinning so a future cleanup of the constants doesn't
-    // silently break apps that depend on them.
-#pragma warning disable CS0618
-    [Fact]
-    public async Task RedirectPaymentAsync_RoutesTo_RedirectPayment()
-    {
-        var (c, f) = NewChannel();
-        await c.RedirectPaymentAsync(new RedirectPaymentRequest());
-        f.Calls.Should().ContainSingle().Which.Path.Should().Be(Base + "RedirectPayment");
-    }
-
-    [Fact]
-    public async Task AssertRedirectPaymentAsync_RoutesTo_AssertRedirectPayment()
-    {
-        var (c, f) = NewChannel();
-        await c.AssertRedirectPaymentAsync(new AssertRedirectPaymentRequest());
-        f.Calls.Should().ContainSingle().Which.Path.Should().Be(Base + "AssertRedirectPayment");
-    }
-#pragma warning restore CS0618
 }
