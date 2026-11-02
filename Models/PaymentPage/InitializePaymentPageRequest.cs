@@ -95,7 +95,7 @@ public class InitializePaymentPageRequest : RequestBase
 
 
     /// <summary>
-    /// Optional order information. Only used for payment method Klarna (mandatory) and for Fraud Intelligence (optional).
+    /// Optional order information. Only used for Klarna (mandatory) and optional for PayPal or Fraud Intelligence.
     /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Order Order { get; set; }

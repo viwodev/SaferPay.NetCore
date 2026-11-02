@@ -74,16 +74,6 @@
         public const string TransactionCancel = "Cancel";
 
         /// <summary>
-        /// Request URL:        POST: /Payment/v1/Transaction/RedirectPayment
-        /// </summary>
-        public const string TransactionRedirectPayment = "RedirectPayment";
-
-        /// <summary>
-        /// Request URL:        POST: /Payment/v1/Transaction/AssertRedirectPayment
-        /// </summary>
-        public const string TransactionAssertRedirectPayment = "AssertRedirectPayment";
-
-        /// <summary>
         /// Request URL:        POST: /Payment/v1/Transaction/Inquire
         /// </summary>
         public const string TransactionInquire = "Inquire";

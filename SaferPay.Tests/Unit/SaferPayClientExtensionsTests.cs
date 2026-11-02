@@ -265,10 +265,6 @@ public class SaferPayClientExtensionsTests
         public Task<AssertRefundResponse> AssertRefundAsync(AssertRefundRequest request) => Task.FromResult(new AssertRefundResponse());
         public RefundDirectResponse RefundDirect(RefundDirectRequest request) => new();
         public Task<RefundDirectResponse> RefundDirectAsync(RefundDirectRequest request) => Task.FromResult(new RefundDirectResponse());
-        public RedirectPaymentResponse RedirectPayment(RedirectPaymentRequest request) => new();
-        public Task<RedirectPaymentResponse> RedirectPaymentAsync(RedirectPaymentRequest request) => Task.FromResult(new RedirectPaymentResponse());
-        public AssertRedirectPaymentResponse AssertRedirectPayment(AssertRedirectPaymentRequest request) => new();
-        public Task<AssertRedirectPaymentResponse> AssertRedirectPaymentAsync(AssertRedirectPaymentRequest request) => Task.FromResult(new AssertRedirectPaymentResponse());
         public AlternativePaymentResponse AlternativePayment(AlternativePaymentRequest request) => new();
         public Task<AlternativePaymentResponse> AlternativePaymentAsync(AlternativePaymentRequest request) => Task.FromResult(new AlternativePaymentResponse());
         public QueryAlternativePaymentResponse QueryAlternativePayment(QueryAlternativePaymentRequest request) => new();

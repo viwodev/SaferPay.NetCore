@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using SaferPay.Models.Core;
 using SaferPay.Models.Transaction;
 
 namespace SaferPay.Tests.Unit;
@@ -37,6 +38,22 @@ public class InitializeRequestTests
 
         jo.ContainsKey("Authentication").Should().BeFalse();
         jo.ContainsKey("CardForm").Should().BeFalse();
+        jo.ContainsKey("Dcc").Should().BeFalse();
         jo["TerminalId"]!.Value<string>().Should().Be("term");
+    }
+
+    // Since 1.54 the DccInquiry result can be passed to Transaction/Initialize
+    [Fact]
+    public void Json_IncludesDccReference_WhenSet()
+    {
+        var req = new InitializeRequest("term", 1m, "CHF", "o", "https://x/r")
+        {
+            Dcc = new Dcc { SelectedCurrencyCode = "EUR", Token = "dcc-token" }
+        };
+
+        var jo = JObject.Parse(req.Json());
+
+        jo["Dcc"]!["SelectedCurrencyCode"]!.Value<string>().Should().Be("EUR");
+        jo["Dcc"]!["Token"]!.Value<string>().Should().Be("dcc-token");
     }
 }

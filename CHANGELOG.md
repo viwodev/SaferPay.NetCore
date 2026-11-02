@@ -2,6 +2,18 @@
 
 All notable changes to SaferPay.NetCore are documented here.
 
+## v1.54
++ Updated to use the latest version of the JSON API, `v1.54` (includes the `v1.53` changes)
++ **Breaking:** removed `Transaction/RedirectPayment` and `Transaction/AssertRedirectPayment` (removed by Saferpay in `v1.53`), use the Payment Page with `PaymentMethods` instead
++ Added the `Dcc` container to `Transaction/Initialize` to pass the result of `Transaction/DccInquiry`
++ Klarna extra merchant data (`Attachment`) is now optional
++ Added `ShippingCarrier`, `ShippingType` and `ShippingTypeAttribute` to the `Klarna` options
++ `Payer.Id` is now accepted for Single-Use Payment Links in the Management API
++ `Transaction/Capture` can now return `PENDING` for Wero refund captures
++ Order items are now supported for PayPal transactions
++ Returned masked card numbers now include the BIN range (first 8 digits), except for `DisplayText`
++ `HolderSegment` and `FundingSource` are now returned by all methods
+
 ## v1.52.02
 + Multi-targeted the library to `.NET 8.0` and `.NET 10.0`
 + Added the `SaferPay.Tests` xUnit project (unit + sandbox integration coverage)

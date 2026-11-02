@@ -47,7 +47,7 @@ public class CaptureRequest : RequestBase
     public MerchantFundDistributor MerchantFundDistributor { get; set; }
 
     /// <summary>
-    /// Optional pending notification capture options for Paydirekt transactions.
+    /// Optional pending notification capture options for PostFinance Instant Payout and Wero refunds.
     /// </summary>
     public Notification PendingNotification { get; set; }
 

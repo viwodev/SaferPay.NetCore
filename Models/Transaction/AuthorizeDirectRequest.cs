@@ -33,7 +33,7 @@ public class AuthorizeDirectRequest : RequestBase
 
 
     /// <summary>
-    /// Optional order information. Only used for payment method Klarna (mandatory) and for Fraud Intelligence (optional).
+    /// Optional order information. Only used for Klarna (mandatory) and optional for PayPal or Fraud Intelligence.
     /// </summary>
     public Order Order { get; set; }
 

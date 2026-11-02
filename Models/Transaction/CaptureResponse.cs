@@ -13,7 +13,7 @@ namespace SaferPay.Models.Transaction
         public string CaptureId { get; set; }
 
         /// <summary>
-        /// Current status of the capture. (PENDING is only used for paydirekt at the moment)<br/><br/>
+        /// Current status of the capture. (PENDING is only used for PostFinance Instant Payout and for WERO refund captures)<br/><br/>
         /// <i>Possible values: PENDING, CAPTURED.</i><br/>
         /// <strong>Mandatory</strong>
         /// </summary>

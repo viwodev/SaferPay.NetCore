@@ -74,7 +74,7 @@ public interface ITransaction
 
     /// <summary>
     /// <b>AssertCapture</b><br/><br/>
-    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for paydirekt transactions at the moment.</i>
+    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for PostFinance Instant Payout transactions at the moment.</i>
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -126,26 +126,6 @@ public interface ITransaction
     /// <param name="request"></param>
     /// <returns></returns>
     public CancelResponse Cancel(CancelRequest request);
-
-
-    /// <summary>
-    /// <b>RedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public RedirectPaymentResponse RedirectPayment(RedirectPaymentRequest request);
-
-
-    /// <summary>
-    /// <b>AssertRedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public AssertRedirectPaymentResponse AssertRedirectPayment(AssertRedirectPaymentRequest request);
 
 
     /// <summary>
@@ -243,7 +223,7 @@ public interface ITransaction
 
     /// <summary>
     /// <b>AssertCapture</b><br/><br/>
-    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for paydirekt transactions at the moment.</i>
+    /// <i><b>Attention: </b>This method is only supported for pending captures. A pending capture is only applicable for PostFinance Instant Payout transactions at the moment.</i>
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -295,26 +275,6 @@ public interface ITransaction
     /// <param name="request"></param>
     /// <returns></returns>
     public Task<CancelResponse> CancelAsync(CancelRequest request);
-
-
-    /// <summary>
-    /// <b>RedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public Task<RedirectPaymentResponse> RedirectPaymentAsync(RedirectPaymentRequest request);
-
-
-    /// <summary>
-    /// <b>AssertRedirectPayment</b><br/><br/>
-    /// <i><b>Warning: </b>This feature is deprecated and replaced by the <b>Payment Page</b>. Please use the parameter <b>PaymentMethods</b> to directly select the desired 3rd party provider!</i>
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [Obsolete(message: "This feature is deprecated and replaced by the Payment Page. Please use the parameter PaymentMethods to directly select the desired 3rd party provider!")]
-    public Task<AssertRedirectPaymentResponse> AssertRedirectPaymentAsync(AssertRedirectPaymentRequest request);
 
 
     /// <summary>

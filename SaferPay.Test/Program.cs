@@ -3,7 +3,7 @@ using System.Drawing;
 using Console = Colorful.Console;
 
 Console.WriteAsciiStyled("SaferPay Test Console", new Colorful.StyleSheet(Color.Orange));
-Console.WriteLine("Json Api Version: 1.52", System.Drawing.Color.OrangeRed);
+Console.WriteLine("Json Api Version: 1.54", System.Drawing.Color.OrangeRed);
 Console.WriteLine("By Viwo Dev");
 Console.WriteLine("https://github.com/viwodev/SaferPay.NetCore");
 Console.WriteLine();
