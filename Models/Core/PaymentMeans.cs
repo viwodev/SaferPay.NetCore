@@ -20,6 +20,8 @@ public class PaymentMeans
 
     public PaymentMeans(Twint twint) => Twint = twint;
 
+    public PaymentMeans(KlarnaPaymentMeans klarna) => Klarna = klarna;
+
     /// <summary>
     /// Brand information
     /// </summary>
@@ -79,6 +81,16 @@ public class PaymentMeans
     /// Payment Data from ApplePay
     /// </summary>
     public ApplePay ApplePay { get; set; }
+
+    /// <summary>
+    /// Payment data from Klarna (API 1.55, <c>Transaction/Initialize</c>).
+    /// </summary>
+    public KlarnaPaymentMeans Klarna { get; set; }
+
+    public static implicit operator PaymentMeans(KlarnaPaymentMeans v)
+    {
+        return new PaymentMeans(v);
+    }
 
     public static implicit operator PaymentMeans(Card v)
     {

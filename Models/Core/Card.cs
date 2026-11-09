@@ -123,6 +123,13 @@ public class Card
     public string HashValue { get; set; }
 
     /// <summary>
+    /// A unique ID for the underlying payment account of the card, shared across all the ways it's used (physical card, Apple Pay, Google Pay, etc.).
+    /// It enables card recognition without exposing sensitive card details.<br/><br/>
+    /// <i>Returned since API 1.55.</i>
+    /// </summary>
+    public string PaymentAccountReference { get; set; }
+
+    /// <summary>
     /// Contains information about the tokenPAN if the transaction, or the referenced transaction, was conducted with a scheme token PAN.
     /// </summary>
     public TokenPan TokenPan { get; set; }
