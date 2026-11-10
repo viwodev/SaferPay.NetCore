@@ -2,6 +2,12 @@
 
 All notable changes to SaferPay.NetCore are documented here.
 
+## v1.55
++ Updated to use the latest version of the JSON API, `v1.55`
++ Added `PaymentAccountReference` to `Card` and `AuthorizationCard` (returned by Payment Page, Transaction, Secure Card Data and Omni Channel responses)
++ Added the `Klarna` sub-container (`KlarnaPaymentMeans`: `KlarnaNetworkSessionToken`, `KlarnaNetworkData`) to `PaymentMeans` for `Transaction/Initialize`
++ Saferpay removed the `Payer` container from the Single-Use Payment Link response (no impact: it was not mapped)
+
 ## v1.54
 + Updated to use the latest version of the JSON API, `v1.54` (includes the `v1.53` changes)
 + **Breaking:** removed `Transaction/RedirectPayment` and `Transaction/AssertRedirectPayment` (removed by Saferpay in `v1.53`), use the Payment Page with `PaymentMethods` instead

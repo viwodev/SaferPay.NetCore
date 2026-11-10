@@ -55,4 +55,11 @@ public class AuthorizationCard
     /// The HashValue, if the hash generation is configured for the customer.
     /// </summary>
     public string HashValue { get; set; }
+
+    /// <summary>
+    /// A unique ID for the underlying payment account of the card, shared across all the ways it's used (physical card, Apple Pay, Google Pay, etc.).
+    /// It enables card recognition without exposing sensitive card details.<br/><br/>
+    /// <i>Returned since API 1.55.</i>
+    /// </summary>
+    public string PaymentAccountReference { get; set; }
 }

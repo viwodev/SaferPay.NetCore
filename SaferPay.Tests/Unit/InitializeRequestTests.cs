@@ -56,4 +56,19 @@ public class InitializeRequestTests
         jo["Dcc"]!["SelectedCurrencyCode"]!.Value<string>().Should().Be("EUR");
         jo["Dcc"]!["Token"]!.Value<string>().Should().Be("dcc-token");
     }
+
+    // Since 1.55 Klarna network session data can be passed as PaymentMeans to Transaction/Initialize
+    [Fact]
+    public void Json_IncludesKlarnaPaymentMeans_WhenSet()
+    {
+        var req = new InitializeRequest("term", 1m, "CHF", "o", "https://x/r")
+        {
+            PaymentMeans = new KlarnaPaymentMeans("session-token")
+        };
+
+        var klarna = JObject.Parse(req.Json())["PaymentMeans"]!["Klarna"]!;
+
+        klarna["KlarnaNetworkSessionToken"]!.Value<string>().Should().Be("session-token");
+        ((JObject)klarna).ContainsKey("KlarnaNetworkData").Should().BeFalse();
+    }
 }

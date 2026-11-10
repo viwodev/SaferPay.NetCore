@@ -7,7 +7,7 @@ public class EndpointsTests
     [Fact]
     public void ApiVersion_IsCurrent()
     {
-        SaferPayApiConstants.Version.Should().Be("1.54");
+        SaferPayApiConstants.Version.Should().Be("1.55");
     }
 
     [Theory]

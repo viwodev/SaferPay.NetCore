@@ -1,14 +1,14 @@
-# SaferPay.NetCore (Json Api V1.54)
+# SaferPay.NetCore (Json Api V1.55)
 
 An implementation of the [SaferPay.Net](https://github.com/bmbsqd/saferpay-net) library, updated to target **.NET 8.0 / .NET 10.0** and to use **RestSharp** instead of HttpClient. Every method is available in both sync and async form.
 
-It tracks the JSON API **v1.54** ([reference](http://saferpay.github.io/jsonapi/#ChapterTransaction)). Test cards and usage are documented on the [SaferPay integration guide](https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay).
+It tracks the JSON API **v1.55** ([reference](http://saferpay.github.io/jsonapi/#ChapterTransaction)). Test cards and usage are documented on the [SaferPay integration guide](https://docs.saferpay.com/home/integration-guide/testing-and-go-live#visa-and-v-pay).
 
 ## What's New
 
 + Multi-targets `.NET 8.0` and `.NET 10.0`
 + `HttpClient` replaced by `RestSharp`
-+ Tracks the latest JSON API, `v1.54`
++ Tracks the latest JSON API, `v1.55`
 + `BaseUri` replaced by a `SandBox` flag (the base URL is derived from it)
 + Simpler constructors and property descriptions taken from the API docs
 + String properties converted to enums
